@@ -1,0 +1,93 @@
+.player {
+    padding: .5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid #333;
+    transition: 300ms;
+    cursor: pointer;
+
+    &:hover {
+        background: #282b38;
+    }
+}
+
+.player img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.player__name {
+    width: 150px;
+    color: #fdfdfd;
+    font-weight: 500;
+}
+
+.player__data {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 0 auto;
+}
+
+.player__data-average {
+    background: #cc4b4b;
+    background: #71cc56;
+    background: #d8ca51;
+    background: #64a5e5;
+    color: #111;
+    padding: .25rem;
+    display: block;
+    border-radius: .25rem;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.player__data-label {
+    font-size: 14px;
+    color: #777;
+}
+
+.pos.F {
+    color: #e73b3b;
+    font-weight: 700;
+}
+
+.pos.M {
+    color: #46c252;
+    font-weight: 700;
+}
+
+.pos.D {
+    color: #7a84ff;
+    font-weight: 700;
+}
+
+.pos.G {
+    color: #e8b345;
+    font-weight: 700;
+}
+
+.pos.C {
+    color: #46c252;
+    font-weight: 700;
+}
+
+.pos.FG {
+    color: #9f46c2;
+    font-weight: 700;
+}
+.pos.GF {
+    color: #46c2c2;
+    font-weight: 700;
+}
+
+/* MB <= 767 - TB <= 1023 - */
+@media screen and (max-width: 767px) {
+
+    .player__name {
+        width: 95px;
+    }
+
+}

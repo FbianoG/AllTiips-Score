@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import './Slider.css'
+import { calculate } from '../utils/calculate'
+import { ApiPlayerDetail } from '../interfaces/interface'
 
-interface pop {
-    saves: any
-    setSaves: any
+interface SliderProps {
+    saves: ApiPlayerDetail[]
+    setSaves: React.Dispatch<React.SetStateAction<ApiPlayerDetail[]>>
 }
 
-const Slider: React.FC<pop> = ({ saves, setSaves }) => {
+const Slider: React.FC<SliderProps> = ({ saves, setSaves }) => {
+
     const [showSlider, setShowSlider] = useState<boolean>(false)
-
-
 
     const fundaments = [
         {
@@ -38,94 +39,61 @@ const Slider: React.FC<pop> = ({ saves, setSaves }) => {
         },
     ]
 
-
-    const targetFundament = (id: number) => {
-
+    const targetFundament = (id: string) => {
         const fundament = fundaments.find((element: any) => (element.id === id))
-
         return fundament?.name
     }
 
+    const deletePlayer = (id: number,) => {
 
-    const calculate = (lambda: any, k: any, element: any) => {
-        lambda = Number(lambda)
-        k = Number(k)
+        const newPlayers = saves.filter((element: any) => {
+            if (element.statistics.id === id) {
+                element.result = 0
+                return
+            } else {
+                return element
+            }
+        })
 
-        console.log(lambda, k)
-
-        let pLessThanK = 0;
-        // Calcula a soma das probabilidades de fazer menos de k gols
-        for (let i = 0; i < k; i++) {
-            pLessThanK += poissonProbability(lambda, i);
-        }
-        // A probabilidade de fazer k ou mais gols é o complemento
-
-        element.result = ((1 - pLessThanK) * 100).toFixed(2)
-        return 1 - pLessThanK;
-    }
-
-    const poissonProbability = (lambda: any, k: any) => {
-        return (Math.exp(-lambda) * Math.pow(lambda, k)) / factorial(k);
-    }
-
-    const factorial = (n: any) => {
-        if (n === 0 || n === 1) return 1;
-        let result = 1;
-        for (let i = 2; i <= n; i++) {
-            result *= i;
-        }
-        return result;
-    }
-
-    const deleteItem = (id: number,) => {
-
-
-        const newPlayers = saves.filter((element: any) => element.statistics.id !== id)
-
-
-        console.log(newPlayers)
         setSaves(newPlayers)
-
-
-
-
-
     }
 
     return (
-        <div className='slider' style={showSlider ? { transform: 'translateY(0)' } : {}}>
+        <div className='slider' style={showSlider ? { bottom: '0' } : {}}>
 
-            <button className='slider__btn' onClick={() => setShowSlider(!showSlider)}>🔼</button>
+            <button className='slider__btn' title='Expandir lista' onClick={() => setShowSlider(!showSlider)}>
+                <i className="fa-solid fa-chevron-up" style={showSlider ? { transform: 'rotate(180deg)' } : {}}></i>
+            </button>
 
-            <ul>
-
+            <ul className='slider__list'>
                 {saves &&
-
-                    saves.map((element: any) => (
+                    saves.map((element, index) => (
                         <div className='slider__item'>
+
                             <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
-                            <div className="slider__data">
-                                <h4>{element.player.shortName}</h4>
+
+                            <div className="slider__data" style={{ margin: '0 auto 0 0' }}>
+                                <h4 className='slider__data-name'>{element.player.shortName}</h4>
                                 <span> {targetFundament(element.type)}</span>
-                                <input type='number' onChange={(e) => calculate(element.average, e.target.value, element)} placeholder='Meta da Aposta' />
-
-                            </div>
-                            <div className="slider__data" style={{ margin: '0 0 0 auto' }}>
-                                <span>{element.average}</span>
-                                <span className='slider__result'>{element.result}%</span>
+                                <input type='number' onChange={(e) => calculate(element.average, Number(e.target.value), saves, setSaves, index)} placeholder='Meta da Aposta' />
                             </div>
 
-                            <button className='slider__delete' title='Remover Jogador' onClick={() => deleteItem(element.statistics.id)}>❌</button>
+                            <div className="slider__data" style={{ textAlign: 'left' }}>
+                                <span>{element.average.toFixed(2)}</span>
+                                <span className='slider__data-result'>{element.result ? element.result : '0,00'}%</span>
+                            </div>
+
+                            <button className='slider__item-btn' title='Remover Jogador' onClick={() => deletePlayer(element.statistics.id)}>
+                                ❌
+                            </button>
+
                         </div>
                     ))
-
-
                 }
 
-                {saves.length < 1 && <h3 style={{ color: '#fdfdfd' }}>Não possui jogador na lista!</h3>}
+                {saves.length < 1 && <h3 className='slider__empty'>Não possui jogador na lista!</h3>}
+
             </ul>
-
-
 
         </div >
     )

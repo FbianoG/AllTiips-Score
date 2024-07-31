@@ -4,19 +4,26 @@ import { useEffect, useState } from 'react';
 import InputTeans from './components/InputTeans';
 
 import Slider from './components/slider';
+import { ApiPlayer, ApiPlayerDetail } from './interfaces/interface';
+import Player from './components/Player/Player';
 
 
 
 function App() {
 
-  const [teamAId, setTeamAId] = useState<number | null>(null)
-  const [teamA, setTeamA] = useState<any>(null)
+  const [teamAId, setTeamAId] = useState<string | undefined>()
+  const [teamA, setTeamA] = useState<ApiPlayer | null>(null)
 
-  const [teamBId, setTeamBId] = useState<number | null>(null)
-  const [teamB, setTeamB] = useState<any>(null)
+  const [teamBId, setTeamBId] = useState<string | undefined>()
+  const [teamB, setTeamB] = useState<ApiPlayer | null>(null)
 
+  const [type, setType] = useState<string | undefined>()
 
-  const [type, setType] = useState<string | null>(null)
+  const [saves, setSaves] = useState<ApiPlayerDetail[]>([])
+
+  const [sport, setSport] = useState<'br' | 'nba'>('br')
+
+  const [url, setUrl] = useState<string>()
 
   useEffect(() => { getStatusA() }, [teamAId])
 
@@ -25,9 +32,11 @@ function App() {
   const getStatusA = async () => {
     try {
       if (!teamAId) return
-      const response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamAId}/unique-tournament/325/season/58766/top-players/overall`)
+      let response
+      if (sport === 'br') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamAId}/unique-tournament/325/season/58766/top-players/overall`)
+      if (sport == 'nba') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamAId}/unique-tournament/10415/season/61717/top-players/overall`)
+      if (!response) return
       setTeamA(response.data.topPlayers)
-      // console.log(response.data.topPlayers[type])
     } catch (error) {
       console.log(error)
     }
@@ -36,7 +45,10 @@ function App() {
   const getStatusB = async () => {
     try {
       if (teamBId) {
-        const response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamBId}/unique-tournament/325/season/58766/top-players/overall`)
+        let response
+        if (sport === 'br') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamBId}/unique-tournament/325/season/58766/top-players/overall`)
+        if (sport == 'nba') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamBId}/unique-tournament/10415/season/61717/top-players/overall`)
+        if (!response) return
         setTeamB(response.data.topPlayers)
       }
     } catch (error) {
@@ -44,67 +56,43 @@ function App() {
     }
   }
 
-
-  // for slider
-
-  const [saves, setSaves] = useState<any>([])
-
-
-  const savePlayer = (player: any, average: string) => {
+  const savePlayer = (player: ApiPlayerDetail, average: number) => {
+    if (!type) return
     player.type = type
     player.average = average
     setSaves([...saves, player])
   }
 
+
+  const changeSport = (name: any) => {
+    setTeamA(null)
+    setTeamB(null)
+    setSport(name)
+  }
+
   return (
     <>
       <div className="item">
-        <select className='type' onChange={(e) => setType(e.target.value)}>
-          <option value="" disabled selected>Fundamento</option>
-          <option value="goals">Gols</option>
-          <option value="totalShots">Finalizações (Total)</option>
-          <option value="shotsOnTarget">Finalizações (Ao Gol)</option>
-          <option value="accuratePasses">Passes (Certos)</option>
-          <option value="tackles">Desarmes</option>
-          <option value="yellowCards">C. Amarelo</option>
+
+
+        <select className='type' onChange={(e) => changeSport(e.target.value)} >
+          <option value="br">Brasileiro Serie A</option>
+          <option value="nba">NBA</option>
         </select>
-        <ul>
-          <InputTeans onChange={setTeamAId} />
-          {teamA && type && teamA[type].map((element: any) => {
-            const average = (element.statistics[type] / element.statistics.appearances).toFixed(2)
-            return (
-              <li key={element.statistics.id} onClick={() => savePlayer(element, average)}>
-                <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
-                <span className={`pos ${element.player.position}`}>{element.player.position}</span>
-                <p>{element.player.shortName}</p>
-                <div className="data">
-                  <span >{element.statistics[type]} (total)</span>
-                  <span className='note'>{average}</span>
-                </div>
-              </li>
-            )
-          })}
-        </ul >
-        <ul>
-          <InputTeans onChange={setTeamBId} />
-          {teamB && type && teamB[type].map((element: any) => {
 
-            const average = (element.statistics[type] / element.statistics.appearances).toFixed(2)
-            return (
-              <li key={element.statistics.id} onClick={() => savePlayer(element, average)}>
-                <div className="data" style={{ margin: '0' }}>
-                  <span className='note' style={{ margin: '0', background: '#71cc56' }}>{average}</span>
-                  <span>(total) {element.statistics[type]}</span>
-                </div>
-                <p style={{ textAlign: 'right', margin: '0 0 0 auto' }}>{element.player.shortName}</p>
-                <span className={`pos ${element.player.position}`}>{element.player.position}</span>
-                <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
-              </li>
-            )
-          })}
+        <InputTeans variant='statistics' sport={sport} onChange={setType} />
+
+        <ul className='list'>
+          <InputTeans variant='teans' sport={sport} onChange={setTeamAId} />
+          {teamA && type && teamA[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} />)}
         </ul >
+
+        <ul className='list'>
+          <InputTeans variant='teans' sport={sport} onChange={setTeamBId} />
+          {teamB && type && teamB[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} aside={true} />)}
+        </ul >
+
       </div >
-
 
       <Slider saves={saves} setSaves={setSaves} />
     </>
