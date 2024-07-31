@@ -115,7 +115,7 @@ const Slider: React.FC<pop> = ({ saves, setSaves }) => {
                                 <span className='slider__result'>{element.result}%</span>
                             </div>
 
-                            <button className='slider__delete' title='Remover Jogador' onClick={() => deleteItem(element.statistics.id, element.type)}>❌</button>
+                            <button className='slider__delete' title='Remover Jogador' onClick={() => deleteItem(element.statistics.id)}>❌</button>
                         </div>
                     ))
 
