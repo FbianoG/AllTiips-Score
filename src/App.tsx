@@ -23,8 +23,6 @@ function App() {
 
   const [sport, setSport] = useState<'br' | 'nba'>('br')
 
-  const [url, setUrl] = useState<string>()
-
   useEffect(() => { getStatusA() }, [teamAId])
 
   useEffect(() => { getStatusB() }, [teamBId])
@@ -41,6 +39,7 @@ function App() {
       console.log(error)
     }
   }
+
 
   const getStatusB = async () => {
     try {
