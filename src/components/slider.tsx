@@ -1,7 +1,12 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import './Slider.css'
 
-const Slider = ({ saves, setSaves }) => {
+interface pop {
+    saves: any
+    setSaves: any
+}
+
+const Slider: React.FC<pop> = ({ saves, setSaves }) => {
     const [showSlider, setShowSlider] = useState<boolean>(false)
 
 
@@ -41,7 +46,6 @@ const Slider = ({ saves, setSaves }) => {
         return fundament?.name
     }
 
-    const [res, setRes] = useState<any>()
 
     const calculate = (lambda: any, k: any, element: any) => {
         lambda = Number(lambda)
@@ -64,7 +68,7 @@ const Slider = ({ saves, setSaves }) => {
         return (Math.exp(-lambda) * Math.pow(lambda, k)) / factorial(k);
     }
 
-    const factorial = (n) => {
+    const factorial = (n: any) => {
         if (n === 0 || n === 1) return 1;
         let result = 1;
         for (let i = 2; i <= n; i++) {
@@ -73,7 +77,7 @@ const Slider = ({ saves, setSaves }) => {
         return result;
     }
 
-    const deleteItem = (id: number, type: string) => {
+    const deleteItem = (id: number,) => {
 
 
         const newPlayers = saves.filter((element: any) => element.statistics.id !== id)

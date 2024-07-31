@@ -2,7 +2,7 @@ import './App.css'
 import axios from 'axios'
 import { useEffect, useState } from 'react';
 import InputTeans from './components/InputTeans';
-import { PlayerRating } from './interfaces/interface';
+
 import Slider from './components/slider';
 
 
