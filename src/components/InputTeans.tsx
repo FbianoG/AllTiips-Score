@@ -65,8 +65,8 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, sport }) => 
                     <option value="3412">Rockets</option>
                     <option value="3429">Spurs</option>
                     <option value="3416">Suns</option>
-                    <option value="3418">Thunder</option>
                     <option value="3426">Timberwolves</option>
+                    <option value="3418">Thunder</option>
                     <option value="3414">Trail Plazers</option>
                     <option value="3428">Warriors</option>
                 </select>

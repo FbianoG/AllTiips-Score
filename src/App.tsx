@@ -33,6 +33,7 @@ function App() {
       let response
       if (sport === 'br') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamAId}/unique-tournament/325/season/58766/top-players/overall`)
       if (sport == 'nba') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamAId}/unique-tournament/10415/season/61717/top-players/overall`)
+
       if (!response) return
       setTeamA(response.data.topPlayers)
     } catch (error) {
@@ -47,6 +48,7 @@ function App() {
         let response
         if (sport === 'br') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamBId}/unique-tournament/325/season/58766/top-players/overall`)
         if (sport == 'nba') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamBId}/unique-tournament/10415/season/61717/top-players/overall`)
+
         if (!response) return
         setTeamB(response.data.topPlayers)
       }
@@ -66,13 +68,13 @@ function App() {
   const changeSport = (name: any) => {
     setTeamA(null)
     setTeamB(null)
+    setType(undefined)
     setSport(name)
   }
 
   return (
     <>
       <div className="item">
-
 
         <select className='type' onChange={(e) => changeSport(e.target.value)} >
           <option value="br">Brasileiro Serie A</option>
@@ -82,15 +84,14 @@ function App() {
         <InputTeans variant='statistics' sport={sport} onChange={setType} />
 
         <ul className='list'>
-          <InputTeans variant='teans' sport={sport} onChange={setTeamAId} />
+          {type && <InputTeans variant='teans' sport={sport} onChange={setTeamAId} />}
           {teamA && type && teamA[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} />)}
         </ul >
 
         <ul className='list'>
-          <InputTeans variant='teans' sport={sport} onChange={setTeamBId} />
+          {type && <InputTeans variant='teans' sport={sport} onChange={setTeamBId} />}
           {teamB && type && teamB[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} aside={true} />)}
         </ul >
-
       </div >
 
       <Slider saves={saves} setSaves={setSaves} />
