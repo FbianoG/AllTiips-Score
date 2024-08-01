@@ -78,7 +78,6 @@ function App() {
 
         <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} />
 
-
         <div className='group__btn'>
           <button>Jogadores</button>
           <button>Time</button>
