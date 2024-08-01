@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     const a = async () => {
-      const response = await axios.get('./src/utils/leagues.json')
+      const response = await axios.get('/leagues.json')
       console.log(response)
       setLeagues(response.data)
     }
