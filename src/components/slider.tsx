@@ -37,6 +37,34 @@ const Slider: React.FC<SliderProps> = ({ saves, setSaves }) => {
             id: 'yellowCards',
             name: 'C.Amarelo'
         },
+        {
+            id: 'assists',
+            name: 'Assistências'
+        },
+        {
+            id: 'points',
+            name: 'Pontos'
+        },
+        {
+            id: 'blocks',
+            name: 'Bloqueios'
+        },
+        {
+            id: 'turnovers',
+            name: 'Turnovers'
+        },
+        {
+            id: 'tripleDoubles',
+            name: 'Triplo Duplo'
+        },
+        {
+            id: 'doubleDoubles',
+            name: 'Duplo Duplo'
+        },
+        {
+            id: 'rebounds',
+            name: 'Rebotes'
+        },
     ]
 
     const targetFundament = (id: string) => {

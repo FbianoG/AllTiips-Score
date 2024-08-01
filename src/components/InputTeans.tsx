@@ -52,6 +52,7 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
                 < select className='type' onChange={(e) => onChange(e.target.value)}>
                     <option value="" disabled selected>Fundamento</option>
                     <option value="goals">Gols</option>
+                    <option value="assists">Assistências</option>
                     <option value="totalShots">Finalizações (Total)</option>
                     <option value="shotsOnTarget">Finalizações (Ao Gol)</option>
                     <option value="accuratePasses">Passes (Certos)</option>
@@ -66,7 +67,10 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
                     <option value="points">Pontos</option>
                     <option value="rebounds">Rebotes</option>
                     <option value="assists">Assistências</option>
+                    <option value="blocks">Bloqueios</option>
+                    <option value="turnovers">Turnovers</option>
                     <option value="doubleDoubles">Duplo Duplo</option>
+                    <option value="tripleDoubles">Triplo Duplo</option>
                 </ select>
             }
 
