@@ -31,6 +31,11 @@
         "name": "Premier League"
     },
     {
+        "leagueId": "35",
+        "season": "52608",
+        "name": "Bundesliga"
+    },
+    {
         "leagueId": "155",
         "season": "57478",
         "name": "Liga Argentina"

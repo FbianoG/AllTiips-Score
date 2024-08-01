@@ -7,6 +7,7 @@ import Slider from './components/slider';
 import { ApiPlayer, ApiPlayerDetail } from './interfaces/interface';
 import Player from './components/Player/Player';
 import { getTopPlayers } from './api/sofaScore';
+import Statistics from './components/Statistics/Statistics';
 
 
 
@@ -14,9 +15,14 @@ function App() {
   // Team A --
   const [teamAId, setTeamAId] = useState<string>()
   const [teamA, setTeamA] = useState<ApiPlayer>()
+  const [statisticsA, setStatisticsA] = useState()
+
   // Team B --
   const [teamBId, setTeamBId] = useState<string>()
   const [teamB, setTeamB] = useState<ApiPlayer>()
+  const [statisticsB, setStatisticsB] = useState()
+
+  const [option, setOption] = useState<'pla' | 'tea' | 'gam'>('pla')
 
   const [type, setType] = useState<string>()
 
@@ -45,8 +51,10 @@ function App() {
     try {
       if (!leagueId || !season) return
       const response = await getTopPlayers(teamId, leagueId, season)
-      if (side === 'A') setTeamA(response)
-      else if (side === 'B') setTeamB(response)
+
+      if (!response) return
+      if (side === 'A') setTeamA(response.play), setStatisticsA(response.stats)
+      else if (side === 'B') setTeamB(response.play), setStatisticsB(response.stats)
     } catch (error) {
       console.log(error)
     }
@@ -79,19 +87,24 @@ function App() {
         <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} />
 
         <div className='group__btn'>
-          <button>Jogadores</button>
-          <button>Time</button>
-          <button>Jogos</button>
+          <button onClick={() => setOption('pla')}>Jogadores</button>
+          <button onClick={() => setOption('tea')}>Time</button>
+          {/* <button onClick={() => setOption('gam')}>Jogos</button> */}
         </div>
 
         <ul className='list'>
           {type && <InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} />}
-          {teamA && type && teamA[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} />)}
+          {teamA && type && option === 'pla' && teamA[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} />)}
+
+          {teamA && type && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
         </ul >
 
         <ul className='list'>
           {type && <InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} />}
-          {teamB && type && teamB[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} aside={true} />)}
+          {teamB && type && option === 'pla' && teamB[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} aside={true} />)}
+
+          {teamB && type && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
+
         </ul >
       </div >
 

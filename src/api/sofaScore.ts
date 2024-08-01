@@ -3,12 +3,19 @@ import axios from "axios"
 
 const getTopPlayers = async (teamId: string, leagueId: string, season: string) => {
     try {
-        let response
-        if (leagueId !== '132') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/overall`)
-        else response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/regularSeason`)
-        console.log(response)
+        let resPlayers
+        let resTeam
+        if (leagueId !== '132') {
+            resPlayers = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/overall`)
+            resTeam = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/statistics/overall`)
+        }
+        else resPlayers = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/regularSeason`)
+        console.log(resTeam)
 
-        return response.data.topPlayers
+
+        const response = { play: resPlayers.data.topPlayers, stats: resTeam?.data.statistics }
+
+        return response
     } catch (error) {
         console.log(error)
     }
