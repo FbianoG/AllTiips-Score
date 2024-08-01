@@ -78,8 +78,14 @@
     color: #9f46c2;
     font-weight: 700;
 }
+
 .pos.GF {
     color: #46c2c2;
+    font-weight: 700;
+}
+
+.pos.FC {
+    color: #ec448a;
     font-weight: 700;
 }
 

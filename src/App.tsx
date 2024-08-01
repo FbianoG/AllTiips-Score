@@ -6,55 +6,59 @@ import InputTeans from './components/InputTeans';
 import Slider from './components/slider';
 import { ApiPlayer, ApiPlayerDetail } from './interfaces/interface';
 import Player from './components/Player/Player';
+import { getTopPlayers } from './api/sofaScore';
 
 
 
 function App() {
+  // Team A --
+  const [teamAId, setTeamAId] = useState<string>()
+  const [teamA, setTeamA] = useState<ApiPlayer>()
+  // Team B --
+  const [teamBId, setTeamBId] = useState<string>()
+  const [teamB, setTeamB] = useState<ApiPlayer>()
 
-  const [teamAId, setTeamAId] = useState<string | undefined>()
-  const [teamA, setTeamA] = useState<ApiPlayer | null>(null)
+  const [type, setType] = useState<string>()
 
-  const [teamBId, setTeamBId] = useState<string | undefined>()
-  const [teamB, setTeamB] = useState<ApiPlayer | null>(null)
+  const [leagues, setLeagues] = useState<any>()
 
-  const [type, setType] = useState<string | undefined>()
+  const [leagueId, setLeagueId] = useState<string>('325')
+
+  const [season, setSeason] = useState<string>('58766')
 
   const [saves, setSaves] = useState<ApiPlayerDetail[]>([])
 
-  const [sport, setSport] = useState<'br' | 'nba'>('br')
+  useEffect(() => { teamAId && getPlayers(teamAId, 'A') }, [teamAId])
 
-  useEffect(() => { getStatusA() }, [teamAId])
+  useEffect(() => { teamBId && getPlayers(teamBId, 'B') }, [teamBId])
 
-  useEffect(() => { getStatusB() }, [teamBId])
+  useEffect(() => {
+    const a = async () => {
+      const response = await axios.get('./src/utils/leagues.json')
+      console.log(response)
+      setLeagues(response.data)
+    }
+    a()
+  }, [])
 
-  const getStatusA = async () => {
+  const getPlayers = async (teamId: string, side: string) => {
     try {
-      if (!teamAId) return
-      let response
-      if (sport === 'br') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamAId}/unique-tournament/325/season/58766/top-players/overall`)
-      if (sport == 'nba') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamAId}/unique-tournament/10415/season/61717/top-players/overall`)
-
-      if (!response) return
-      setTeamA(response.data.topPlayers)
+      if (!leagueId || !season) return
+      const response = await getTopPlayers(teamId, leagueId, season)
+      if (side === 'A') setTeamA(response)
+      else if (side === 'B') setTeamB(response)
     } catch (error) {
       console.log(error)
     }
   }
 
-
-  const getStatusB = async () => {
-    try {
-      if (teamBId) {
-        let response
-        if (sport === 'br') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamBId}/unique-tournament/325/season/58766/top-players/overall`)
-        if (sport == 'nba') response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamBId}/unique-tournament/10415/season/61717/top-players/overall`)
-
-        if (!response) return
-        setTeamB(response.data.topPlayers)
-      }
-    } catch (error) {
-      console.log(error)
-    }
+  const changeLeague = async (id: string) => {
+    setTeamA(undefined)
+    setTeamB(undefined)
+    setType(undefined)
+    const data = leagues.find((element: any) => element.leagueId === id)
+    setSeason(data.season)
+    setLeagueId(id)
   }
 
   const savePlayer = (player: ApiPlayerDetail, average: number) => {
@@ -64,32 +68,30 @@ function App() {
     setSaves([...saves, player])
   }
 
-
-  const changeSport = (name: any) => {
-    setTeamA(null)
-    setTeamB(null)
-    setType(undefined)
-    setSport(name)
-  }
-
   return (
     <>
       <div className="item">
 
-        <select className='type' onChange={(e) => changeSport(e.target.value)} >
-          <option value="br">Brasileiro Serie A</option>
-          <option value="nba">NBA</option>
+        <select className='type' onChange={(e) => changeLeague(e.target.value)} >
+          {leagues && leagues.map((element: any) => <option value={element.leagueId}>{element.name}</option>)}
         </select>
 
-        <InputTeans variant='statistics' sport={sport} onChange={setType} />
+        <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} />
+
+
+        <div className='group__btn'>
+          <button>Jogadores</button>
+          <button>Time</button>
+          <button>Jogos</button>
+        </div>
 
         <ul className='list'>
-          {type && <InputTeans variant='teans' sport={sport} onChange={setTeamAId} />}
+          {type && <InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} />}
           {teamA && type && teamA[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} />)}
         </ul >
 
         <ul className='list'>
-          {type && <InputTeans variant='teans' sport={sport} onChange={setTeamBId} />}
+          {type && <InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} />}
           {teamB && type && teamB[type].map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} aside={true} />)}
         </ul >
       </div >

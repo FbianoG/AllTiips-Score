@@ -29,6 +29,27 @@ body {
   box-shadow: 3px 3px 5px #0003;
 }
 
+.item .group__btn {
+  grid-column: span 2;
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+}
+
+.item .group__btn button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #7f97ab;
+  cursor: pointer;
+  transition: .3s;
+
+  &:hover {
+    opacity: .7;
+  }
+
+}
+
 .item h3 {
   margin: 0 0 2rem;
   font-weight: 500;

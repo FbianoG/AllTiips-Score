@@ -1,5 +1,5 @@
 export interface ApiPlayer {
-    [key: string]: ApiPlayerDetail[];
+    [key: string]: ApiPlayerDetail[]
 }
 
 export interface ApiPlayerDetail {
@@ -31,4 +31,33 @@ interface Stats {
     id: number
     appearances: number
     [key: string]: number // Permitir propriedades dinâmicas
+}
+
+
+
+
+export interface ApiTeams {
+    descriptions: string[]
+    draws: number
+    id: number
+    losses: number
+    matches: number
+    points: number
+    position: number
+    promotion: {
+        text: string
+        id: number
+        [key: string]: any
+    }
+    scoresAgainst: number
+    scoresFor: number
+    team: {
+        name: string
+        slug: string
+        shortName: string
+        gender: string
+        id: number
+        [key: string]: any
+    }
+    wins: number
 }

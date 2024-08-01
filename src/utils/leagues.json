@@ -1,0 +1,43 @@
+[
+    {
+        "leagueId": "325",
+        "season": "58766",
+        "name": "Brasileirão - Serie A"
+    },
+    {
+        "leagueId": "390",
+        "season": "59015",
+        "name": "Brasileirão - Serie B"
+    },
+    {
+        "leagueId": "384",
+        "season": "57296",
+        "name": "Libertadores"
+    },
+
+    {
+        "leagueId": "17",
+        "season": "52186",
+        "name": "Premier League"
+    },
+    {
+        "leagueId": "8",
+        "season": "52376",
+        "name": "La Liga"
+    },
+    {
+        "leagueId": "23",
+        "season": "52760",
+        "name": "Premier League"
+    },
+    {
+        "leagueId": "155",
+        "season": "57478",
+        "name": "Liga Argentina"
+    },
+    {
+        "leagueId": "132",
+        "season": "54105",
+        "name": "NBA"
+    }
+]
