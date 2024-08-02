@@ -1,38 +1,31 @@
 import axios from "axios"
 
-
-const getTopPlayers = async (teamId: string, leagueId: string, season: string) => {
+const getTopPlayers = async (teamId: string, leagueId: string, season: string) => { // Estatísticas dos jogadores e do time
     try {
-        let resPlayers
-        let resTeam
         if (leagueId !== '132') {
-            resPlayers = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/overall`)
-            resTeam = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/statistics/overall`)
+            const [responsePlayers, responseTeams] = await Promise.all([
+                axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/overall`),
+                axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/statistics/overall`)
+            ])
+            const response = { play: responsePlayers.data.topPlayers, stats: responseTeams.data.statistics }
+            return response
+        } else {
+            const responsePlayers = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/regularSeason`)
+            const response = { play: responsePlayers.data.topPlayers, stats: [] }
+            return response
         }
-        else resPlayers = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/regularSeason`)
-        console.log(resTeam)
-
-
-        const response = { play: resPlayers.data.topPlayers, stats: resTeam?.data.statistics }
-
-        return response
     } catch (error) {
         console.log(error)
     }
 }
 
-const getTeams = async (leagueId: string, season: string) => {
-
+const getTeams = async (leagueId: string, season: string) => { // Times participantes da liga
     try {
         const response = await axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/standings/total`)
-
         return response.data.standings
-
     } catch (error) {
-
+        console.log(error)
     }
 }
-
-
 
 export { getTopPlayers, getTeams }

@@ -7,7 +7,12 @@ export interface ApiPlayerDetail {
     type: string
     result: number
     average: number
-    statistics: Stats
+    statistics: {
+        type: any
+        id: number
+        appearances: number
+        [key: string]: number
+    }
     player: {
         name: string
         slug: string
@@ -25,16 +30,6 @@ export interface ApiPlayerDetail {
         }
     }
 }
-
-interface Stats {
-    type: any
-    id: number
-    appearances: number
-    [key: string]: number // Permitir propriedades dinâmicas
-}
-
-
-
 
 export interface ApiTeams {
     descriptions: string[]
@@ -60,4 +55,10 @@ export interface ApiTeams {
         [key: string]: any
     }
     wins: number
+}
+
+export interface ApiLeagues {
+    leagueId: string
+    season: string
+    name: string
 }

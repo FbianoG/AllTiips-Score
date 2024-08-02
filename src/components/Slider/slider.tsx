@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Slider.css'
-import { calculate } from '../utils/calculate'
-import { ApiPlayerDetail } from '../interfaces/interface'
+import { calculate } from '../../utils/calculate'
+import { ApiPlayerDetail } from '../../interfaces/interface'
 
 interface SliderProps {
     saves: ApiPlayerDetail[]

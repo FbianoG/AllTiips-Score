@@ -34,9 +34,9 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
         <>
             {variant === 'teans' &&
                 <select onChange={(e) => onChange(e.target.value)}>
-                    <option value="" disabled selected>Time</option>
+                    <option value="" selected>Time</option>
 
-                    {teams && teams.map((row: any) => (
+                    {teams && leagueId !== '' && teams.map((row: any) => (
                         <optgroup label={row.name} style={{ background: '#1d1d27' }} >
                             {row.rows.map((element: ApiTeams) => <option value={element.team.id}>{element.team.shortName}</option>)}
                         </optgroup>
@@ -48,9 +48,9 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
             }
 
 
-            {variant === 'statistics' && leagueId !== '132' &&
+            {variant === 'statistics' && leagueId !== '132' && leagueId !== '' &&
                 < select className='type' onChange={(e) => onChange(e.target.value)}>
-                    <option value="" disabled selected>Fundamento</option>
+                    <option value="" disabled selected>Fundamentos</option>
                     <option value="goals">Gols</option>
                     <option value="assists">Assistências</option>
                     <option value="totalShots">Finalizações (Total)</option>

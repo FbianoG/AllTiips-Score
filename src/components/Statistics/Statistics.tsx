@@ -5,13 +5,11 @@ interface StatsProps {
     aside?: boolean
 }
 
-
 const Statistics: React.FC<StatsProps> = ({ statistics, aside }) => {
 
+    if (statistics.length === 0) return <h3 style={{ textAlign: 'center' }}>Não possui dados para apresentar!</h3>
 
     const average = (e: number) => e / statistics.matches
-
-    console.log(statistics)
 
     return (
         <>
