@@ -39,7 +39,7 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
 
                     {teams && leagueId !== '' && teams.map((row: any) => (
                         <optgroup label={row.name} >
-                            {row.rows.map((element: ApiTeams) => <option selected={team === element.team.id && true} value={element.team.id}>{element.position}º - {element.team.shortName} ({element.points})</option>)}
+                            {row.rows.map((element: ApiTeams) => <option selected={Number(team) == element.team.id && true} value={element.team.id}>{element.position}º - {element.team.shortName} ({element.points})</option>)}
                         </optgroup>
                     ))
                     }
