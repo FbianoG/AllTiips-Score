@@ -1,4 +1,5 @@
 import axios from "axios"
+import { ApiMatches } from "../interfaces/interface"
 
 const getTopPlayers = async (teamId: string, leagueId: string, season: string) => { // Estatísticas dos jogadores e do time
     try {
@@ -17,6 +18,7 @@ const getTopPlayers = async (teamId: string, leagueId: string, season: string) =
         }
     } catch (error) {
         console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
     }
 }
 
@@ -27,6 +29,7 @@ const getTeams = async (leagueId: string, season: string) => { // Times particip
         return response.data.standings
     } catch (error) {
         console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
     }
 }
 
@@ -34,11 +37,16 @@ const getTeams = async (leagueId: string, season: string) => { // Times particip
 const getMatches = async (leagueId: string, season: string) => {
     try {
         if (!leagueId || !season) return
-        const response = await axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/events/next/0`)
-        const obj = response.data.events
-        return obj
+        const [response, round] = await Promise.all([
+            axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/events/next/0`),
+            axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/rounds`)
+        ])
+        const currentRound = round.data.currentRound.round
+        const matches = response.data.events.filter((element: ApiMatches) => element.roundInfo.round === currentRound)
+        return matches
     } catch (error) {
-
+        console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
     }
 }
 

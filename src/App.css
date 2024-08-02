@@ -52,7 +52,7 @@ body {
   width: 150px;
   border: 1px solid #eee;
   border-radius: .5rem;
-  padding: .5rem ;
+  padding: .5rem;
 
   &:hover {
     background: #eee;
@@ -138,7 +138,7 @@ optgroup {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 0 20px 0 0 ;
+  padding: 0 20px 0 0;
 }
 
 .matches__card h3 img {
@@ -150,6 +150,55 @@ optgroup {
   font-size: 14px;
   margin: 5px;
   display: block;
+}
+
+.homeAway {
+  grid-column: span 2;
+  margin: 0 auto;
+  display: none;
+  gap: 15px;
+  align-items: center;
+}
+
+.homeAway span {
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  width: 40px;
+  text-align: center;
+  color: #777;
+}
+
+.range {
+  width: 50px;
+  height: 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: rgb(193, 221, 250);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 2px 2px 5px #0001;
+}
+
+.range.away {
+  background: #f3adad;
+}
+
+.range .position {
+  width: 20px;
+  height: 18px;
+  position: absolute;
+  top: 0;
+  right: 60%;
+  background: dodgerblue;
+  border-radius: 50%;
+  transition: .3s;
+}
+
+.position.away {
+  right: 0;
+  background: #e94646;
 }
 
 /* MB <= 767 - TB <= 1023 - */
@@ -177,5 +226,9 @@ optgroup {
 
   .type {
     width: 100%;
+  }
+
+  .homeAway {
+    display: flex;
   }
 }

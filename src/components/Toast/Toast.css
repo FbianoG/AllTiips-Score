@@ -1,5 +1,6 @@
 .toast {
     width: max-content;
+    max-width: 80%;
     padding: 1rem;
     display: flex;
     gap: 20px;
@@ -10,8 +11,8 @@
     transform: translate(-50%, -130%);
     box-shadow: 3px 3px 5px #0003;
     border-radius: .5rem;
-
     animation: showToast .5s both;
+    z-index: 10;
 }
 
 @keyframes showToast {
