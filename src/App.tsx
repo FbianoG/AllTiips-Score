@@ -11,6 +11,8 @@ import InputTeans from './components/InputTeans'
 import Statistics from './components/Statistics/Statistics'
 import Toast from './components/Toast/Toast'
 import Header from './components/Header/Header'
+import Loading from './components/Loading/Loading'
+import Hero from './components/Hero/Hero'
 
 
 const App = () => {
@@ -24,19 +26,21 @@ const App = () => {
   const [teamB, setTeamB] = useState<ApiPlayer>()
   const [statisticsB, setStatisticsB] = useState()
 
-  const [option, setOption] = useState<'pla' | 'tea' | 'gam'>('pla')
-
-  const [type, setType] = useState<string>()
-
-  const [leagues, setLeagues] = useState<ApiLeagues[]>([])
-  const [leagueId, setLeagueId] = useState<string>('325')
-  const [season, setSeason] = useState<string>('58766')
-
-  const [saves, setSaves] = useState<ApiPlayerDetail[]>([])
+  const [option, setOption] = useState<'pla' | 'tea' | 'gam'>('pla') // Viewing option
+  const [type, setType] = useState<string>() // Selected individual statistics
+  const [leagues, setLeagues] = useState<ApiLeagues[]>([]) // List of championship
+  const [leagueId, setLeagueId] = useState<string>('325') // Selected championship
+  const [season, setSeason] = useState<string>('58766') // Championship season
+  const [saves, setSaves] = useState<ApiPlayerDetail[]>([]) // Saved players list
+  const [matches, setMatches] = useState<ApiMatches[]>() // Current round matches
+  const [loading, setLoading] = useState<boolean>(false) // Show loading
+  const [toast, setToast] = useState<any>(false) // Tost content
 
   useEffect(() => { teamAId && getPlayers(teamAId, 'A') }, [teamAId])
 
   useEffect(() => { teamBId && getPlayers(teamBId, 'B') }, [teamBId])
+
+  useEffect(() => { loadMatches() }, [leagueId])
 
   useEffect(() => {
     const a = async () => {
@@ -47,6 +51,7 @@ const App = () => {
   }, [])
 
   const getPlayers = async (teamId: string, side: string) => {
+    setLoading(true)
     try {
       if (!leagueId || !season) return
       const response = await getTopPlayers(teamId, leagueId, season)
@@ -55,6 +60,8 @@ const App = () => {
       else if (side === 'B') setTeamB(response.play), setStatisticsB(response.stats)
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -70,7 +77,23 @@ const App = () => {
     }
   }
 
-  const [toast, setToast] = useState<any>(false)
+  const loadMatches = async () => {
+    setLoading(true)
+    try {
+      const response = await getMatches(leagueId, season)
+      setMatches(response)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const selectMatch = (homeId: any, awayId: any) => {
+    setTeamAId(homeId)
+    setTeamBId(awayId)
+    setOption('tea')
+  }
 
   const savePlayer = (player: ApiPlayerDetail, average: number) => {
     if (!type) return
@@ -81,32 +104,12 @@ const App = () => {
     setTimeout(() => { setToast({ text: 'Jogador incluido à lista.', variant: 'success' }) }, 0)
   }
 
-  const [matches, setMatches] = useState<ApiMatches[]>()
-
-  const loadMatches = async () => {
-
-    try {
-
-      const response = await getMatches(leagueId, season)
-      setMatches(response)
-
-    } catch (error) {
-
-    }
-
-
-  }
-
-  const selectMatch = (homeId: any, awayId: any) => {
-    setTeamAId(homeId)
-    setTeamBId(awayId)
-    setOption('tea')
-  }
-
   return (
     <>
 
       <Header />
+
+      <Hero />
 
       <div className="item">
 
@@ -142,15 +145,13 @@ const App = () => {
 
         </ul >
 
-
-
-
         {matches && option === 'gam' &&
           <div className="matches">
             {matches.map((element, index) => {
-              if (index > 9) return
-              return (
 
+              if (index > 9) return
+
+              return (
                 <div className="matches__card" onClick={() => selectMatch(element.homeTeam.id, element.awayTeam.id)}>
                   <span>{element.roundInfo.round}º Rodada</span>
                   <h3><img src={`https://api.sofascore.app/api/v1/team/${element.homeTeam.id}/image`} alt={element.homeTeam.name} />{element.homeTeam.shortName} ({element.tournament.homeScore})</h3>
@@ -163,11 +164,7 @@ const App = () => {
           </div>
         }
 
-
-
-
-
-
+        {loading && <Loading />}
 
       </div >
 

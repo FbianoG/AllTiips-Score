@@ -44,7 +44,6 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
                     ))
                     }
 
-
                 </select>
             }
 

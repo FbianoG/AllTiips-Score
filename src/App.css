@@ -9,7 +9,7 @@ body {
   width: 100%;
   min-height: 100vh;
   background: #edf1f6;
-  padding: 2rem 2rem;
+  /* padding: 0 2rem 2rem 2rem; */
 }
 
 #root {
@@ -21,6 +21,8 @@ body {
   width: 80%;
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
+  top: -100px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px 50px;
@@ -83,7 +85,7 @@ select {
   font-size: 20px;
   color: rgb(46, 127, 207);
   font-weight: 500;
-  background: none;
+  background: #fdfdfd;
   border: none;
   border-bottom: 1px solid #9cceff;
   outline: none;
@@ -171,5 +173,9 @@ optgroup {
 
   ul:nth-of-type(2) {
     display: none;
+  }
+
+  .type {
+    width: 100%;
   }
 }

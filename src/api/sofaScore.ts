@@ -22,6 +22,7 @@ const getTopPlayers = async (teamId: string, leagueId: string, season: string) =
 
 const getTeams = async (leagueId: string, season: string) => { // Times participantes da liga
     try {
+        if (!leagueId || !season) return
         const response = await axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/standings/total`)
         return response.data.standings
     } catch (error) {
@@ -32,16 +33,10 @@ const getTeams = async (leagueId: string, season: string) => { // Times particip
 
 const getMatches = async (leagueId: string, season: string) => {
     try {
+        if (!leagueId || !season) return
         const response = await axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/events/next/0`)
-
         const obj = response.data.events
-
-
-        // const array = Object.entries(obj).map(([key, value]) => ({ 'matches': value }));
-
-        console.log(obj)
-
-        return response.data.events
+        return obj
     } catch (error) {
 
     }

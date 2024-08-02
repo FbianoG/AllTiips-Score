@@ -1,0 +1,27 @@
+.loading {
+    grid-column: span 2;
+    /* border: 1px solid red; */
+    width: max-content;
+    margin: 0 auto ;
+    display: grid;
+    place-items: center;
+    gap: 5px;
+}
+
+.loading__spin {
+    width: 80px;
+    height: 80px;
+    border: 5px solid #ddd;
+    border-bottom: 5px solid dodgerblue;
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    100%{transform: rotate(360deg);}
+}
+
+.loading span {
+    color: #333;
+    font-weight: 500;
+}
