@@ -62,3 +62,34 @@ export interface ApiLeagues {
     season: string
     name: string
 }
+
+
+export interface ApiMatches {
+    [key: string]: any
+    tournament: {
+        name: string
+        id: number
+        startTimestamp: number
+        homeScore: any
+        awayScore: any
+        time: any
+        [key: string]: any
+    }
+    roundInfo: {
+        round: number
+    }
+    homeTeam: {
+        name: string
+        slug: string
+        shortName: string
+        id: number
+    }
+    awayTeam: {
+        name: string
+        slug: string
+        shortName: string
+        id: number
+    }
+
+
+}

@@ -112,7 +112,7 @@ const Slider: React.FC<SliderProps> = ({ saves, setSaves }) => {
                             </div>
 
                             <button className='slider__item-btn' title='Remover Jogador' onClick={() => deletePlayer(element.statistics.id)}>
-                                ❌
+                            <i className="fa-solid fa-xmark"></i>
                             </button>
 
                         </div>

@@ -9,10 +9,11 @@ interface InputTeansProps {
     variant: 'teans' | 'statistics'
     leagueId: string
     season?: string
+    team?: string
     onChange: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, season }) => {
+const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, season, team }) => {
 
     const [teams, setTeams] = useState<any>([])
 
@@ -37,8 +38,8 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
                     <option value="" selected>Time</option>
 
                     {teams && leagueId !== '' && teams.map((row: any) => (
-                        <optgroup label={row.name} style={{ background: '#1d1d27' }} >
-                            {row.rows.map((element: ApiTeams) => <option value={element.team.id}>{element.team.shortName}</option>)}
+                        <optgroup label={row.name} >
+                            {row.rows.map((element: ApiTeams) => <option selected={team === element.team.id && true} value={element.team.id}>{element.position}º - {element.team.shortName} ({element.points})</option>)}
                         </optgroup>
                     ))
                     }

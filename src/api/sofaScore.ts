@@ -6,6 +6,7 @@ const getTopPlayers = async (teamId: string, leagueId: string, season: string) =
             const [responsePlayers, responseTeams] = await Promise.all([
                 axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/overall`),
                 axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/statistics/overall`)
+                //  https://www.sofascore.com/api/v1/player/852534/unique-tournament/325/season/58766/statistics/overall 
             ])
             const response = { play: responsePlayers.data.topPlayers, stats: responseTeams.data.statistics }
             return response
@@ -28,4 +29,22 @@ const getTeams = async (leagueId: string, season: string) => { // Times particip
     }
 }
 
-export { getTopPlayers, getTeams }
+
+const getMatches = async (leagueId: string, season: string) => {
+    try {
+        const response = await axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/events/next/0`)
+
+        const obj = response.data.events
+
+
+        // const array = Object.entries(obj).map(([key, value]) => ({ 'matches': value }));
+
+        console.log(obj)
+
+        return response.data.events
+    } catch (error) {
+
+    }
+}
+
+export { getTopPlayers, getTeams, getMatches }

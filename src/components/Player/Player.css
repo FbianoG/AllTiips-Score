@@ -3,12 +3,12 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #dedede;
     transition: 300ms;
     cursor: pointer;
 
     &:hover {
-        background: #282b38;
+        background: linear-gradient(to right, transparent, #eee, transparent);
     }
 }
 
@@ -20,7 +20,7 @@
 
 .player__name {
     width: 150px;
-    color: #fdfdfd;
+    color: #555;
     font-weight: 500;
 }
 
@@ -35,8 +35,8 @@
     background: #cc4b4b;
     background: #71cc56;
     background: #d8ca51;
-    background: #64a5e5;
-    color: #111;
+    background: #4598eb;
+    color: #fdfdfd;
     padding: .25rem;
     display: block;
     border-radius: .25rem;

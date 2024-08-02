@@ -48,6 +48,20 @@ const Statistics: React.FC<StatsProps> = ({ statistics, aside }) => {
                         </div>
                     </li>
                     <li className='player' >
+                        <p className='player__name'>Assistências</p>
+                        <div className="player__data">
+                            <span className='player__data-label'>{statistics.assists} (total)</span>
+                            <span className='player__data-average' title='Média p/ jogo'>{average(statistics.assists).toFixed(2)}</span>
+                        </div>
+                    </li>
+                    <li className='player' >
+                        <p className='player__name'>Tiros de Meta</p>
+                        <div className="player__data">
+                            <span className='player__data-label'>{statistics.goalKicks} (total)</span>
+                            <span className='player__data-average' title='Média p/ jogo'>{average(statistics.goalKicks).toFixed(2)}</span>
+                        </div>
+                    </li>
+                    <li className='player' >
                         <p className='player__name'>Escanteios</p>
                         <div className="player__data">
                             <span className='player__data-label'>{statistics.corners} (total)</span>
@@ -80,6 +94,20 @@ const Statistics: React.FC<StatsProps> = ({ statistics, aside }) => {
                         <div className="player__data">
                             <span className='player__data-label'>{statistics.shotsAgainst} (total)</span>
                             <span className='player__data-average' title='Média p/ jogo'>{average(statistics.shotsAgainst).toFixed(2)}</span>
+                        </div>
+                    </li>
+                    <li className='player' >
+                        <p className='player__name'>Desarmes</p>
+                        <div className="player__data">
+                            <span className='player__data-label'>{statistics.tackles}</span>
+                            <span className='player__data-average' title='Média p/ jogo'>{average(statistics.shotsAgainst).toFixed(2)}</span>
+                        </div>
+                    </li>
+                    <li className='player' >
+                        <p className='player__name'>Desarmes (Contra)</p>
+                        <div className="player__data">
+                            <span className='player__data-label'>{statistics.tacklesAgainst}</span>
+                            <span className='player__data-average' title='Média p/ jogo'>{average(statistics.tacklesAgainst).toFixed(2)}</span>
                         </div>
                     </li>
                     <li className='player' >
@@ -150,6 +178,20 @@ const Statistics: React.FC<StatsProps> = ({ statistics, aside }) => {
                     </li>
                     <li className='player' >
                         <div className="player__data" style={{ margin: '0' }}>
+                            <span className='player__data-average' style={{ background: '#71cc56' }} title='Média p/ jogo'>{average(statistics.assists).toFixed(2)}</span>
+                            <span className='player__data-label'>{statistics.assists} (total)</span>
+                        </div>
+                        <p className='player__name' style={{ margin: "0 0 0 auto", textAlign: "right" }}>Assistências</p>
+                    </li>
+                    <li className='player' >
+                        <div className="player__data" style={{ margin: '0' }}>
+                            <span className='player__data-average' style={{ background: '#71cc56' }} title='Média p/ jogo'>{average(statistics.goalKicks).toFixed(2)}</span>
+                            <span className='player__data-label'>{statistics.goalKicks} (total)</span>
+                        </div>
+                        <p className='player__name' style={{ margin: "0 0 0 auto", textAlign: "right" }}>Tiros de Meta</p>
+                    </li>
+                    <li className='player' >
+                        <div className="player__data" style={{ margin: '0' }}>
                             <span className='player__data-average' style={{ background: '#71cc56' }} title='Média p/ jogo'>{average(statistics.corners).toFixed(2)}</span>
                             <span className='player__data-label'>{statistics.corners} (total)</span>
                         </div>
@@ -182,6 +224,20 @@ const Statistics: React.FC<StatsProps> = ({ statistics, aside }) => {
                             <span className='player__data-label'>{statistics.shotsAgainst} (total)</span>
                         </div>
                         <p className='player__name' style={{ margin: "0 0 0 auto", textAlign: "right" }}>Fin. (Contra)</p>
+                    </li>
+                    <li className='player' >
+                        <div className="player__data" style={{ margin: '0' }}>
+                            <span className='player__data-average' style={{ background: '#71cc56' }} title='Média p/ jogo'>{average(statistics.tackles).toFixed(2)}</span>
+                            <span className='player__data-label'>{statistics.tackles} (total)</span>
+                        </div>
+                        <p className='player__name' style={{ margin: "0 0 0 auto", textAlign: "right" }}>Desarmes</p>
+                    </li>
+                    <li className='player' >
+                        <div className="player__data" style={{ margin: '0' }}>
+                            <span className='player__data-average' style={{ background: '#71cc56' }} title='Média p/ jogo'>{average(statistics.tacklesAgainst).toFixed(2)}</span>
+                            <span className='player__data-label'>{statistics.tacklesAgainst} (total)</span>
+                        </div>
+                        <p className='player__name' style={{ margin: "0 0 0 auto", textAlign: "right" }}>Desarmes (Contra)</p>
                     </li>
                     <li className='player' >
                         <div className="player__data" style={{ margin: '0' }}>

@@ -2,8 +2,8 @@ import './App.css'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-import { getTopPlayers } from './api/sofaScore'
-import { ApiLeagues, ApiPlayer, ApiPlayerDetail } from './interfaces/interface'
+import { getMatches, getTopPlayers } from './api/sofaScore'
+import { ApiLeagues, ApiMatches, ApiPlayer, ApiPlayerDetail } from './interfaces/interface'
 
 import Slider from './components/Slider/slider'
 import Player from './components/Player/Player'
@@ -81,6 +81,28 @@ const App = () => {
     setTimeout(() => { setToast({ text: 'Jogador incluido à lista.', variant: 'success' }) }, 0)
   }
 
+  const [matches, setMatches] = useState<ApiMatches[]>()
+
+  const loadMatches = async () => {
+
+    try {
+
+      const response = await getMatches(leagueId, season)
+      setMatches(response)
+
+    } catch (error) {
+
+    }
+
+
+  }
+
+  const selectMatch = (homeId: any, awayId: any) => {
+    setTeamAId(homeId)
+    setTeamBId(awayId)
+    setOption('tea')
+  }
+
   return (
     <>
 
@@ -97,12 +119,12 @@ const App = () => {
         <div className='group__btn'>
           <button onClick={() => setOption('pla')} style={option === 'pla' ? { color: 'dodgerblue' } : {}}>Jogadores</button>
           <button onClick={() => setOption('tea')} style={option === 'tea' ? { color: 'dodgerblue' } : {}}>Time</button>
-          {/* <button onClick={() => setOption('gam')}>Jogos</button> */}
+          <button onClick={() => { setOption('gam'), loadMatches() }} style={option === 'gam' ? { color: 'dodgerblue' } : {}}>Jogos</button>
         </div>
 
         <ul className='list'>
 
-          {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} />}
+          {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} />}
 
           {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} />)}
 
@@ -112,13 +134,40 @@ const App = () => {
 
         <ul className='list'>
 
-          {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} />}
+          {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} />}
 
           {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} aside={true} />)}
 
           {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
 
         </ul >
+
+
+
+
+        {matches && option === 'gam' &&
+          <div className="matches">
+            {matches.map((element, index) => {
+              if (index > 9) return
+              return (
+
+                <div className="matches__card" onClick={() => selectMatch(element.homeTeam.id, element.awayTeam.id)}>
+                  <span>{element.roundInfo.round}º Rodada</span>
+                  <h3><img src={`https://api.sofascore.app/api/v1/team/${element.homeTeam.id}/image`} alt={element.homeTeam.name} />{element.homeTeam.shortName} ({element.tournament.homeScore})</h3>
+                  <h3 style={{ padding: '0' }}>X</h3>
+                  <h3><img src={`https://api.sofascore.app/api/v1/team/${element.awayTeam.id}/image`} alt={element.awayTeam.name} />{element.awayTeam.shortName} ({element.tournament.awayScore})</h3>
+                  <span>{new Date(element.startTimestamp * 1000).toLocaleString()}</span>
+                </div>
+              )
+            })}
+          </div>
+        }
+
+
+
+
+
+
 
       </div >
 
