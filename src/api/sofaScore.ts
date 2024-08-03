@@ -50,4 +50,21 @@ const getMatches = async (leagueId: string, season: string) => {
     }
 }
 
-export { getTopPlayers, getTeams, getMatches }
+
+const getPlayerDetails = async (playerId: number, leagueId: string, season: string) => {
+    try {
+        const response = await axios.get(`https://www.sofascore.com/api/v1/player/${playerId}/unique-tournament/${leagueId}/season/${season}/statistics/overall`)
+        const obj = response.data.statistics
+        return obj
+    } catch (error) {
+        console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
+    }
+}
+
+export { getTopPlayers, getTeams, getMatches, getPlayerDetails }
+
+
+
+
+// https://www.sofascore.com/api/v1/player/852534/unique-tournament/325/season/58766/statistics/overall

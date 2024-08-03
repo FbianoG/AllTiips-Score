@@ -141,14 +141,14 @@ const App = () => {
         {window.innerWidth >= 768 &&
           <ul className='list'>
             {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} />}
-            {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} />)}
+            {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} />)}
             {teamA && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
           </ul >
         }
         {window.innerWidth < 768 && !range &&
           <ul className='list'>
             {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} />}
-            {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} />)}
+            {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} />)}
             {teamA && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
           </ul >
         }
@@ -156,14 +156,14 @@ const App = () => {
         {window.innerWidth >= 768 &&
           <ul className='list'>
             {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} />}
-            {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} aside={true} />)}
+            {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
             {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
           </ul >
         }
         {window.innerWidth < 768 && range &&
           <ul className='list'>
             {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} />}
-            {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} savePlayer={savePlayer} aside={true} />)}
+            {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
             {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
           </ul >
         }

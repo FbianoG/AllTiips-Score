@@ -90,6 +90,12 @@ export interface ApiMatches {
         shortName: string
         id: number
     }
+}
 
-
+export interface ApiPlayerMoreDetails {
+    matchesStarted: number
+    appearances: number
+    touches: number
+    minutesPlayed: number
+    [key: string]: string | number
 }
