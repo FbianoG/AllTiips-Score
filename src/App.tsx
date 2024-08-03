@@ -13,6 +13,7 @@ import Statistics from './components/Statistics/Statistics'
 import Slider from './components/Slider/slider'
 import Loading from './components/Loading/Loading'
 import Toast from './components/Toast/Toast'
+import Footer from './components/Footer/Footer'
 
 
 const App = () => {
@@ -26,7 +27,7 @@ const App = () => {
   const [teamB, setTeamB] = useState<ApiPlayer>()
   const [statisticsB, setStatisticsB] = useState()
 
-  const [option, setOption] = useState<'pla' | 'tea' | 'mat'>('pla') // Viewing option
+  const [option, setOption] = useState<'pla' | 'tea' | 'mat'>('tea') // Viewing option
   const [type, setType] = useState<string>() // Selected individual statistics
   const [leagues, setLeagues] = useState<ApiLeagues[]>([]) // List of championship
   const [leagueId, setLeagueId] = useState<string>('325') // Selected championship
@@ -128,12 +129,12 @@ const App = () => {
         </div>
 
 
-        <div className="homeAway">
-          <span onClick={() => setRange(false)}>Casa</span>
-          <div className={`range ${range && 'away'}`} onClick={() => setRange(!range)} >
+        <div className="homeAway" onClick={() => setRange(!range)}>
+          <span>Casa</span>
+          <div className={`range ${range && 'away'}`}>
             <div className={`position ${range && 'away'}`}></div>
           </div>
-          <span onClick={() => setRange(true)}>Fora</span>
+          <span>Fora</span>
         </div>
 
 
@@ -186,6 +187,8 @@ const App = () => {
         {loading && <Loading />}
 
       </div >
+
+      <Footer />
 
       <Slider saves={saves} setSaves={setSaves} />
 
