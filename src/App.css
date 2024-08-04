@@ -68,9 +68,10 @@ body {
 }
 
 .type {
-  grid-column: span 2;
   width: 50%;
   margin: 0 auto;
+  z-index: 9;
+  grid-column: span 2;
 }
 
 .list {
@@ -153,12 +154,18 @@ optgroup {
 }
 
 .homeAway {
+  width: 100%;
+  padding: 10px 20px;
+  position: sticky;
+  top: 54px;
   grid-column: span 2;
-  margin: 0 auto;
   display: none;
   gap: 15px;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
+  background: #fff;
+  z-index: 9;
 }
 
 .homeAway span {

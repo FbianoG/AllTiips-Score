@@ -36,8 +36,9 @@ const Player: React.FC<PlayerProps> = ({ element, type, aside, leagueId, season,
             console.log(error)
         }
     }
-    
-    const handleDetails = () => {
+
+    const handleDetails = (e: any) => {
+        if (e.target.tagName === 'I') return
         if (ShowDetails) {
             setShowDetails(false)
             return
@@ -51,15 +52,14 @@ const Player: React.FC<PlayerProps> = ({ element, type, aside, leagueId, season,
         }
     }
 
-    const handleSavePlayer = (e: any) => {
-        if (e.target.tagName === 'I') return
+    const handleSavePlayer = () => {
         savePlayer(element, average)
     }
 
     return (
         <>
             {!aside &&
-                <li key={element.statistics.id} className='player' onClick={(e) => handleSavePlayer(e)} onMouseLeave={() => setShowDetails(false)}>
+                <li key={element.statistics.id} className='player' onClick={(e) => handleDetails(e)} onMouseLeave={() => setShowDetails(false)} >
 
                     <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt={element.player.shortName} loading='lazy' />
                     <span className={`pos ${element.player.position}`} title='Posição'>{element.player.position === 'F' ? 'A' : element.player.position}</span>
@@ -68,8 +68,8 @@ const Player: React.FC<PlayerProps> = ({ element, type, aside, leagueId, season,
                         <span className='player__data-label'>{element.statistics[type]} (total)</span>
                         <span className='player__data-average' title='Média p/ jogo'>{average.toFixed(2)}</span>
                     </div>
-                    <button className='player__btn-details' onMouseEnter={handleDetails} onClick={handleDetails}>
-                        <i className="fa-regular fa-eye"></i>
+                    <button className='player__btn-details' title='Incluir à lista' onClick={handleSavePlayer} onMouseLeave={() => setShowDetails(false)}>
+                        <i className="fa-solid fa-square-plus"></i>
                     </button>
                     {ShowDetails && playerDetails &&
                         <div className="player__details">
@@ -84,10 +84,10 @@ const Player: React.FC<PlayerProps> = ({ element, type, aside, leagueId, season,
 
             {
                 aside &&
-                <li key={element.statistics.id} className='player' onClick={(e) => handleSavePlayer(e)} onMouseLeave={() => setShowDetails(false)}>
+                <li key={element.statistics.id} className='player' onClick={(e) => handleDetails(e)} onMouseLeave={() => setShowDetails(false)}>
 
-                    <button className='player__btn-details' onMouseEnter={handleDetails} onClick={handleDetails}>
-                        <i className="fa-regular fa-eye"></i>
+                    <button className='player__btn-details' title='Incluir à lista' onClick={handleSavePlayer} onMouseLeave={() => setShowDetails(false)}>
+                        <i className="fa-solid fa-square-plus"></i>
                     </button>
                     <div className="player__data" style={{ margin: '0' }}>
                         <span title='Média p/ jogo' className='player__data-average' style={{ margin: '0', background: '#71cc56' }}>{average.toFixed(2)}</span>
@@ -98,7 +98,7 @@ const Player: React.FC<PlayerProps> = ({ element, type, aside, leagueId, season,
                     <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt={element.player.shortName} loading='lazy' />
 
                     {ShowDetails && playerDetails &&
-                        <div className="player__details" style={{ right: '61%' }}>
+                        <div className="player__details" style={{ left: '0' }}>
                             <span><strong>Jogos:</strong> {playerDetails.appearances}</span>
                             <span><strong>Titular:</strong> {playerDetails.matchesStarted} jogos</span>
                             <span><strong>Minutos:</strong> {(playerDetails.minutesPlayed / playerDetails?.appearances).toFixed(0)}m (p/ jogo)</span>

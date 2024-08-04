@@ -13,6 +13,7 @@
     box-shadow: 0 -2px 8px 2px #0001;
     overflow: hidden;
     transition: 500ms;
+    z-index: 9;
 }
 
 .slider__btn {
