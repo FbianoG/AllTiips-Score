@@ -4,6 +4,9 @@ import { useEffect, useState } from "react"
 import { ApiTeams } from "../interfaces/interface"
 import { getTeams } from "../api/sofaScore"
 
+import {v4 as uuidv4} from 'uuid'
+
+
 
 interface InputTeansProps {
     variant: 'teans' | 'statistics'
@@ -18,9 +21,7 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
 
     const [teams, setTeams] = useState<any>([])
 
-    useEffect(() => {
-        getTeam()
-    }, [leagueId])
+    useEffect(() => { getTeam() }, [leagueId])
 
     const getTeam = async () => {
         try {
@@ -32,6 +33,8 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
         }
     }
 
+    
+
     return (
         <>
             {variant === 'teans' &&
@@ -39,8 +42,8 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
                     <option value="" >Time</option>
 
                     {teams && leagueId !== '' && teams.map((row: any) => (
-                        <optgroup label={row.name} >
-                            {row.rows.map((element: ApiTeams) => <option selected={Number(team) == element.team.id && true} value={element.team.id}>{element.position}º - {element.team.shortName} ({element.points})</option>)}
+                        <optgroup key={uuidv4()} label={row.name} >
+                            {row.rows.map((element: ApiTeams) => <option key={uuidv4()} selected={Number(team) == element.team.id && true} value={element.team.id}>{element.position}º - {element.team.shortName} ({element.points})</option>)}
                         </optgroup>
                     ))
                     }

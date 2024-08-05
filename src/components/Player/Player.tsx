@@ -73,10 +73,10 @@ const Player: React.FC<PlayerProps> = ({ element, type, aside, leagueId, season,
                     </button>
                     {ShowDetails && playerDetails &&
                         <div className="player__details">
-                            <span><strong>Jogos:</strong> {playerDetails.appearances}</span>
-                            <span><strong>Titular:</strong> {playerDetails.matchesStarted} jogos</span>
-                            <span><strong>Minutos:</strong> {(playerDetails.minutesPlayed / playerDetails?.appearances).toFixed(0)}m (p/ jogo)</span>
-                            <span><strong>Toques:</strong> {(playerDetails.touches / playerDetails?.appearances).toFixed(0)} (p/ jogo)</span>
+                            <span>📋 <strong>Titular:</strong> {playerDetails.matchesStarted}/{playerDetails.appearances}</span>
+                            <span>⏱️ <strong>Minutos:</strong> {(playerDetails.minutesPlayed / playerDetails?.appearances).toFixed(0)}m (p/ jogo)</span>
+                            <span>⚽ <strong>Toques:</strong> {(playerDetails.touches / playerDetails?.appearances).toFixed(0)} (p/ jogo)</span>
+                            <span>⚠️ <strong>Faltas:</strong> {(playerDetails.fouls / playerDetails?.appearances).toFixed(2)} (p/ jogo)</span>
                         </div>
                     }
 
@@ -99,10 +99,10 @@ const Player: React.FC<PlayerProps> = ({ element, type, aside, leagueId, season,
 
                     {ShowDetails && playerDetails &&
                         <div className="player__details" style={{ left: '0' }}>
-                            <span><strong>Jogos:</strong> {playerDetails.appearances}</span>
-                            <span><strong>Titular:</strong> {playerDetails.matchesStarted} jogos</span>
-                            <span><strong>Minutos:</strong> {(playerDetails.minutesPlayed / playerDetails?.appearances).toFixed(0)}m (p/ jogo)</span>
-                            <span><strong>Toques:</strong> {(playerDetails.touches / playerDetails?.appearances).toFixed(0)} (p/ jogo)</span>
+                            <span>📋 <strong>Titular:</strong> {playerDetails.matchesStarted}/{playerDetails.appearances}</span>
+                            <span>⏱️ <strong>Minutos:</strong> {(playerDetails.minutesPlayed / playerDetails?.appearances).toFixed(0)}m (p/ jogo)</span>
+                            <span>⚽ <strong>Toques:</strong> {(playerDetails.touches / playerDetails?.appearances).toFixed(0)} (p/ jogo)</span>
+                            <span>⚠️ <strong>Faltas:</strong> {(playerDetails.fouls / playerDetails?.appearances).toFixed(2)} (p/ jogo)</span>
                         </div>
                     }
 

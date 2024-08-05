@@ -99,14 +99,14 @@ const Statistics: React.FC<StatsProps> = ({ statistics, aside }) => {
                     <li className='player' >
                         <p className='player__name'>Desarmes</p>
                         <div className="player__data">
-                            <span className='player__data-label'>{statistics.tackles}</span>
+                            <span className='player__data-label'>{statistics.tackles} (total)</span>
                             <span className='player__data-average' title='Média p/ jogo'>{average(statistics.shotsAgainst).toFixed(2)}</span>
                         </div>
                     </li>
                     <li className='player' >
                         <p className='player__name'>Desarmes (Contra)</p>
                         <div className="player__data">
-                            <span className='player__data-label'>{statistics.tacklesAgainst}</span>
+                            <span className='player__data-label'>{statistics.tacklesAgainst} (total)</span>
                             <span className='player__data-average' title='Média p/ jogo'>{average(statistics.tacklesAgainst).toFixed(2)}</span>
                         </div>
                     </li>

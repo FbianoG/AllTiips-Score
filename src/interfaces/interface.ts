@@ -103,5 +103,6 @@ export interface ApiPlayerMoreDetails {
     appearances: number
     touches: number
     minutesPlayed: number
+    fouls: number
     [key: string]: string | number
 }
