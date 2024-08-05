@@ -64,16 +64,22 @@ export interface ApiLeagues {
 }
 
 
+export interface ApiMatchesObject {
+    currentMatches: ApiMatches[]
+    lastMatches: ApiMatches[]
+    nextMatches: ApiMatches[]
+
+}
+
 export interface ApiMatches {
     [key: string]: any
-    tournament: {
-        name: string
-        id: number
-        startTimestamp: number
-        homeScore: any
-        awayScore: any
-        time: any
-        [key: string]: any
+    id: number
+    startTimestamp: number
+    homeScore: {
+        current: number
+    }
+    awayScore: {
+        current: number
     }
     roundInfo: {
         round: number

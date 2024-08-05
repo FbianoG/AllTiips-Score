@@ -37,12 +37,17 @@ const getTeams = async (leagueId: string, season: string) => { // Times particip
 const getMatches = async (leagueId: string, season: string) => {
     try {
         if (!leagueId || !season) return
-        const [response, round] = await Promise.all([
+        const [nMatches, lMatches, round] = await Promise.all([
             axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/events/next/0`),
+            axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/events/last/0`),
             axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/rounds`)
         ])
         const currentRound = round.data.currentRound.round
-        const matches = response.data.events.filter((element: ApiMatches) => element.roundInfo.round === currentRound)
+        const matches = {
+            currentMatches: nMatches.data.events.filter((element: ApiMatches) => element.roundInfo.round === currentRound),
+            lastMatches: lMatches.data.events.filter((element: ApiMatches) => element.roundInfo.round === currentRound),
+            nextMatches: nMatches.data.events.filter((element: ApiMatches) => element.roundInfo.round === currentRound + 1)
+        }
         return matches
     } catch (error) {
         console.log(error)

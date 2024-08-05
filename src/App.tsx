@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import { getMatches, getTopPlayers } from './api/sofaScore'
-import { ApiLeagues, ApiMatches, ApiPlayer, ApiPlayerDetail } from './interfaces/interface'
+import { ApiLeagues, ApiMatchesObject, ApiPlayer, ApiPlayerDetail } from './interfaces/interface'
 
 import Header from './components/Header/Header'
 import Hero from './components/Hero/Hero'
@@ -14,6 +14,7 @@ import Slider from './components/Slider/slider'
 import Loading from './components/Loading/Loading'
 import Toast from './components/Toast/Toast'
 import Footer from './components/Footer/Footer'
+import Matches from './components/Matches/Matches'
 
 
 const App = () => {
@@ -27,13 +28,13 @@ const App = () => {
   const [teamB, setTeamB] = useState<ApiPlayer>()
   const [statisticsB, setStatisticsB] = useState()
 
-  const [option, setOption] = useState<'pla' | 'tea' | 'mat'>('tea') // Viewing option
+  const [option, setOption] = useState<'pla' | 'tea' | 'mat'>('mat') // Viewing option
   const [type, setType] = useState<string>() // Selected individual statistics
   const [leagues, setLeagues] = useState<ApiLeagues[]>([]) // List of championship
   const [leagueId, setLeagueId] = useState<string>('325') // Selected championship
   const [season, setSeason] = useState<string>('58766') // Championship season
   const [saves, setSaves] = useState<ApiPlayerDetail[]>([]) // Saved players list
-  const [matches, setMatches] = useState<ApiMatches[]>() // Current round matches
+  const [matches, setMatches] = useState<ApiMatchesObject>() // Current round matches
   const [loading, setLoading] = useState<boolean>(false) // Show loading
   const [toast, setToast] = useState<any>(false) // Tost content
 
@@ -117,19 +118,19 @@ const App = () => {
       <div className="item">
 
         <select className='type' onChange={(e) => changeLeague(e.target.value)} >
-          {leagues && leagues.map((element: any) => <option value={element.leagueId}>{element.name}</option>)}
+          {leagues && leagues.map((element: any) => <option key={element.leagueId} value={element.leagueId}>{element.name}</option>)}
         </select>
 
-        {leagueId !== '' && <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} />}
+        {leagueId !== '' && <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} option={option} />}
 
         <div className='group__btn'>
-          <button onClick={() => setOption('pla')} style={option === 'pla' ? { color: 'dodgerblue' } : {}}>Jogadores</button>
-          <button onClick={() => setOption('tea')} style={option === 'tea' ? { color: 'dodgerblue' } : {}}>Time</button>
           <button onClick={() => { setOption('mat'), loadMatches() }} style={option === 'mat' ? { color: 'dodgerblue' } : {}}>Jogos</button>
+          <button onClick={() => setOption('tea')} style={option === 'tea' ? { color: 'dodgerblue' } : {}}>Time</button>
+          <button onClick={() => setOption('pla')} style={option === 'pla' ? { color: 'dodgerblue' } : {}}>Jogadores</button>
         </div>
 
 
-        <div className="homeAway" onClick={() => setRange(!range)}>
+        <div style={option === 'mat' ? { display: 'none' } : {}} className="homeAway" onClick={() => setRange(!range)}>
           <span>Casa</span>
           <div className={`range ${range && 'away'}`}>
             <div className={`position ${range && 'away'}`}></div>
@@ -140,14 +141,14 @@ const App = () => {
 
         {window.innerWidth >= 768 &&
           <ul className='list'>
-            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} />}
+            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} option={option} />}
             {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} />)}
             {teamA && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
           </ul >
         }
         {window.innerWidth < 768 && !range &&
           <ul className='list'>
-            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} />}
+            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} option={option} />}
             {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} />)}
             {teamA && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
           </ul >
@@ -155,14 +156,14 @@ const App = () => {
 
         {window.innerWidth >= 768 &&
           <ul className='list'>
-            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} />}
+            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} option={option} />}
             {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
             {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
           </ul >
         }
         {window.innerWidth < 768 && range &&
           <ul className='list'>
-            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} />}
+            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} option={option} />}
             {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
             {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
           </ul >
@@ -170,18 +171,12 @@ const App = () => {
 
         {matches && option === 'mat' &&
           <div className="matches">
-            {matches.map((element) => {
-              return (
-                <div className="matches__card" onClick={() => selectMatch(element.homeTeam.id, element.awayTeam.id)}>
-                  <span>{element.roundInfo.round}º Rodada</span>
-                  <h3><img src={`https://api.sofascore.app/api/v1/team/${element.homeTeam.id}/image`} alt={element.homeTeam.name} />{element.homeTeam.shortName} ({element.tournament.homeScore})</h3>
-                  <h3 style={{ padding: '0' }}>X</h3>
-                  <h3><img src={`https://api.sofascore.app/api/v1/team/${element.awayTeam.id}/image`} alt={element.awayTeam.name} />{element.awayTeam.shortName} ({element.tournament.awayScore})</h3>
-                  <span>{new Date(element.startTimestamp * 1000).toLocaleString()}</span>
-                </div>
-              )
-            })}
+            {matches.lastMatches.map((element) => <Matches key={element.homeTeam.id + 'l'} element={element} selectMatch={selectMatch} />)}
+            {matches.currentMatches.map((element) => <Matches key={element.homeTeam.id + 'c'} element={element} selectMatch={selectMatch} />)}
+            <h2 className='matches__title'>Próxima Rodada</h2>
+            {matches.nextMatches.map((element) => <Matches key={element.homeTeam.id + 'n'} element={element} selectMatch={selectMatch} />)}
           </div>
+
         }
 
         {loading && <Loading />}

@@ -10,11 +10,20 @@
         "name": "Brasileirão - Serie B"
     },
     {
+        "leagueId": "373",
+        "season": "58134",
+        "name": "Copa do Brasil"
+    },
+    {
         "leagueId": "384",
         "season": "57296",
         "name": "Libertadores"
     },
-
+    {
+        "leagueId": "7",
+        "season": "61644",
+        "name": "Champions League"
+    },
     {
         "leagueId": "17",
         "season": "52186",
@@ -26,14 +35,19 @@
         "name": "La Liga"
     },
     {
-        "leagueId": "23",
-        "season": "52760",
-        "name": "Premier League"
-    },
-    {
         "leagueId": "35",
         "season": "52608",
         "name": "Bundesliga"
+    },
+    {
+        "leagueId": "23",
+        "season": "52760",
+        "name": "Serie A"
+    },
+    {
+        "leagueId": "34",
+        "season": "61736",
+        "name": "Ligue 1"
     },
     {
         "leagueId": "155",

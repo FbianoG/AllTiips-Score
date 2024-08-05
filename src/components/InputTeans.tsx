@@ -8,12 +8,13 @@ import { getTeams } from "../api/sofaScore"
 interface InputTeansProps {
     variant: 'teans' | 'statistics'
     leagueId: string
+    option: 'pla' | 'tea' | 'mat'
     season?: string
     team?: string
     onChange: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, season, team }) => {
+const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, season, team, option }) => {
 
     const [teams, setTeams] = useState<any>([])
 
@@ -34,8 +35,8 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
     return (
         <>
             {variant === 'teans' &&
-                <select onChange={(e) => onChange(e.target.value)}>
-                    <option value="" selected>Time</option>
+                <select className="select__teams" style={option == 'mat' ? { display: 'none' } : {}} onChange={(e) => onChange(e.target.value)} defaultValue=''>
+                    <option value="" >Time</option>
 
                     {teams && leagueId !== '' && teams.map((row: any) => (
                         <optgroup label={row.name} >
@@ -49,8 +50,8 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
 
 
             {variant === 'statistics' && leagueId !== '132' && leagueId !== '' &&
-                < select className='type' style={{ position: 'sticky', top: '0' }} onChange={(e) => onChange(e.target.value)}>
-                    <option value="" disabled selected>Fundamentos</option>
+                < select style={option == 'mat' ? { display: 'none' } : {}} className='type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
+                    <option value="" disabled >Fundamentos</option>
                     <option value="goals">Gols</option>
                     <option value="assists">Assistências</option>
                     <option value="totalShots">Finalizações (Total)</option>
@@ -62,8 +63,8 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
             }
 
             {variant === 'statistics' && leagueId === '132' &&
-                < select className='type' onChange={(e) => onChange(e.target.value)}>
-                    <option value="" disabled selected>Fundamento</option>
+                < select className='type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
+                    <option value="" disabled >Fundamento</option>
                     <option value="points">Pontos</option>
                     <option value="rebounds">Rebotes</option>
                     <option value="assists">Assistências</option>
