@@ -103,7 +103,7 @@ const Slider: React.FC<SliderProps> = ({ saves, setSaves }) => {
                             <div className="slider__data" style={{ margin: '0 auto 0 0' }}>
                                 <h4 className='slider__data-name'>{element.player.shortName}</h4>
                                 <span> {targetFundament(element.type)}</span>
-                                <input type='number' onChange={(e) => { calculate(element.average, Number(e.target.value), saves, setSaves, index), calculeteResults() }} placeholder='Meta da Aposta' />
+                                <input type='number' onChange={(e) => calculate(element.average, Number(e.target.value), saves, setSaves, index)} placeholder='Meta da Aposta' />
                             </div>
 
                             <div className="slider__data" style={{ textAlign: 'left' }}>
