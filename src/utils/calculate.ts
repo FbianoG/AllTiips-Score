@@ -1,5 +1,7 @@
 const calculate = (lambda: number, k: any, saves: any, setSaves: any, ind: number) => {
 
+    if (k > 100) return
+
     let pLessThanK = 0;
 
     for (let i = 0; i < k; i++) {
@@ -14,7 +16,6 @@ const calculate = (lambda: number, k: any, saves: any, setSaves: any, ind: numbe
             } else return e
         })
     )
-
 
     return 1 - pLessThanK;
 }

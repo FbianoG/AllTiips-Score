@@ -1,13 +1,13 @@
 import './App.css'
 import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid'
 import { useEffect, useState } from 'react'
-
 import { getMatches, getTopPlayers } from './api/sofaScore'
 import { ApiLeagues, ApiMatchesObject, ApiPlayer, ApiPlayerDetail } from './interfaces/interface'
 
 import Header from './components/Header/Header'
 import Hero from './components/Hero/Hero'
-import InputTeans from './components/InputTeans'
+import InputTeans from './components/Input/Input'
 import Player from './components/Player/Player'
 import Statistics from './components/Statistics/Statistics'
 import Slider from './components/Slider/slider'
@@ -117,11 +117,13 @@ const App = () => {
 
       <div className="item">
 
-        <select className='type' onChange={(e) => changeLeague(e.target.value)} >
+        <select className='input__select type' onChange={(e) => changeLeague(e.target.value)} >
           {leagues && leagues.map((element: any) => <option key={element.leagueId} value={element.leagueId}>{element.name}</option>)}
         </select>
 
-        {leagueId !== '' && <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} option={option} />}
+        {leagueId !== '' &&
+          <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} option={option} />
+        }
 
         <div className='group__btn'>
           <button onClick={() => { setOption('mat'), loadMatches() }} style={option === 'mat' ? { color: 'dodgerblue' } : {}}>Jogos</button>
@@ -138,45 +140,45 @@ const App = () => {
           <span>Fora</span>
         </div>
 
+        <>
+          {window.innerWidth >= 768 &&
+            <ul className='list'>
+              <InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} option={option} />
+              {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player key={uuidv4()} element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} />)}
+              {teamA && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
+            </ul >
+          }
+          {window.innerWidth < 768 && !range &&
+            <ul className='list'>
+              <InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} option={option} />
+              {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player key={uuidv4()} element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} />)}
+              {teamA && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
+            </ul >
+          }
 
-        {window.innerWidth >= 768 &&
-          <ul className='list'>
-            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} option={option} />}
-            {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} />)}
-            {teamA && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
-          </ul >
-        }
-        {window.innerWidth < 768 && !range &&
-          <ul className='list'>
-            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamAId} team={teamAId} option={option} />}
-            {teamA && type && option === 'pla' && teamA[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} />)}
-            {teamA && option === 'tea' && statisticsA && <Statistics statistics={statisticsA} />}
-          </ul >
-        }
-
-        {window.innerWidth >= 768 &&
-          <ul className='list'>
-            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} option={option} />}
-            {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
-            {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
-          </ul >
-        }
-        {window.innerWidth < 768 && range &&
-          <ul className='list'>
-            {<InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} option={option} />}
-            {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
-            {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
-          </ul >
-        }
+          {window.innerWidth >= 768 &&
+            <ul className='list'>
+              <InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} option={option} />
+              {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player key={uuidv4()} element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
+              {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
+            </ul >
+          }
+          {window.innerWidth < 768 && range &&
+            <ul className='list'>
+              <InputTeans variant='teans' leagueId={leagueId} season={season} onChange={setTeamBId} team={teamBId} option={option} />
+              {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player key={uuidv4()} element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
+              {teamB && option === 'tea' && statisticsB && <Statistics statistics={statisticsB} aside={true} />}
+            </ul >
+          }
+        </>
 
         {matches && option === 'mat' &&
           <div className="matches">
-            {matches.lastMatches.map((element) => <Matches key={element.homeTeam.id + 'l'} element={element} selectMatch={selectMatch} />)}
-            {matches.currentMatches.map((element) => <Matches key={element.homeTeam.id + 'c'} element={element} selectMatch={selectMatch} />)}
+            {matches.lastMatches.map((element) => <Matches key={uuidv4()} element={element} selectMatch={selectMatch} />)}
+            {matches.currentMatches.map((element) => <Matches key={uuidv4()} element={element} selectMatch={selectMatch} />)}
             <h2 className='matches__title'>Próxima Rodada</h2>
-            {matches.nextMatches.map((element) => <Matches key={element.homeTeam.id + 'n'} element={element} selectMatch={selectMatch} />)}
+            {matches.nextMatches.map((element) => <Matches key={uuidv4()} element={element} selectMatch={selectMatch} />)}
           </div>
-
         }
 
         {loading && <Loading />}

@@ -32,6 +32,12 @@ body {
   box-shadow: 0 1px 8px 1px #0001;
 }
 
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
 .item .group__btn {
   grid-column: span 2;
   margin: 20px auto 10px;
@@ -65,47 +71,6 @@ body {
   font-weight: 500;
   font-size: 24px;
   color: #fdfdfd;
-}
-
-.type {
-  width: 50%;
-  margin: 0 auto;
-  z-index: 9;
-  grid-column: span 2;
-}
-
-.list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-}
-
-select {
-  padding: .75rem;
-  margin: 0 0 20px;
-  font-size: 20px;
-  color: rgb(46, 127, 207);
-  font-weight: 500;
-  background: #fdfdfd;
-  border: none;
-  border-bottom: 1px solid #9cceff;
-  outline: none;
-  cursor: pointer;
-}
-
-option {
-  background: #fdfdfd;
-  border-radius: 10px;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  color: #777;
-}
-
-optgroup {
-  background: #eee;
-  font-size: 16px;
-  color: #777;
 }
 
 .homeAway {

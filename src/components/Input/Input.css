@@ -1,0 +1,34 @@
+.input__select.type {
+    width: 50%;
+    margin: 0 auto;
+    z-index: 9;
+    grid-column: span 2;
+}
+
+.input__select {
+    padding: .75rem;
+    margin: 0 0 20px;
+    font-size: 20px;
+    color: rgb(46, 127, 207);
+    font-weight: 500;
+    background: #fdfdfd;
+    border: none;
+    border-bottom: 1px solid #9cceff;
+    outline: none;
+    cursor: pointer;
+}
+
+option {
+    background: #fdfdfd;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #777;
+}
+
+optgroup {
+    background: #eee;
+    font-size: 16px;
+    color: #777;
+}

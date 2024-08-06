@@ -16,9 +16,9 @@ const Footer = () => {
                 <div className="footer__content-item">
                     <h3>Aposte</h3>
                     <nav>
-                        <a href='' target='_blank'>bet365</a>
-                        <a href='' target='_blank'>Betano</a>
-                        <a href='' target='_blank'>PixBet</a>
+                        <a href='https://www.365sb.com/#/HO/' target='_blank'>bet365</a>
+                        <a href='https://br.betano.com/' target='_blank'>Betano</a>
+                        <a href='https://pixbet.com/' target='_blank'>PixBet</a>
                         <a href='' target='_blank'>Sportingbet</a>
                     </nav>
                 </div>
