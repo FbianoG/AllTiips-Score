@@ -59,7 +59,7 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
             }
 
             {variant === 'statistics' && leagueId === '132' &&
-                < select className='type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
+                < select className='input__select type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
                     <option value="" disabled >Fundamento</option>
                     <option value="points">Pontos</option>
                     <option value="rebounds">Rebotes</option>
