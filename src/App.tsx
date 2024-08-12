@@ -132,7 +132,7 @@ const App = () => {
         </div>
 
 
-        <div style={option === 'mat' ? { display: 'none' } : {}} className="homeAway" onClick={(e) => { setRange(!range), document.querySelectorAll('.group__btn')[0].scrollIntoView() }}>
+        <div style={option === 'mat' ? { display: 'none' } : {}} className="homeAway" onClick={() => { setRange(!range), document.querySelectorAll('.group__btn')[0].scrollIntoView() }}>
           <span>Casa</span>
           <div className={`range ${range && 'away'}`}>
             <div className={`position ${range && 'away'}`}></div>
