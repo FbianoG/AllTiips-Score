@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Nunito", sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -159,6 +160,9 @@ body {
     gap: 5px;
   }
 
+  .item .group__btn button {
+    width: 135px;
+  }
 
   .homeAway {
     display: flex;

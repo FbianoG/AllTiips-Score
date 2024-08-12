@@ -45,8 +45,9 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
                 </select>
             }
 
+            {/* Fundamentos Futebol */}
             {variant === 'statistics' && leagueId !== '132' && leagueId !== '' &&
-                < select style={option == 'mat' ? { display: 'none' } : {}} className='input__select type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
+                < select style={option !== 'pla' ? { display: 'none' } : {}} className='input__select type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
                     <option value="" disabled >Fundamentos</option>
                     <option value="goals">Gols</option>
                     <option value="assists">Assistências</option>
@@ -58,6 +59,7 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
                 </ select>
             }
 
+            {/* Fundamentos Basquete */}
             {variant === 'statistics' && leagueId === '132' &&
                 < select className='input__select type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
                     <option value="" disabled >Fundamento</option>

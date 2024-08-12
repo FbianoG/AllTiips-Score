@@ -96,6 +96,9 @@ export interface ApiMatches {
         shortName: string
         id: number
     }
+    status: {
+        type: 'inprogress' | 'finished' | 'notstarted'
+    }
 }
 
 export interface ApiPlayerMoreDetails {

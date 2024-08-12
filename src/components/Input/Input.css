@@ -32,3 +32,11 @@ optgroup {
     font-size: 16px;
     color: #777;
 }
+
+/* MB <= 767 - TB <= 1023 - */
+@media screen and (max-width: 767px) {
+    .input__select.type {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -132,7 +132,7 @@ const App = () => {
         </div>
 
 
-        <div style={option === 'mat' ? { display: 'none' } : {}} className="homeAway" onClick={() => setRange(!range)}>
+        <div style={option === 'mat' ? { display: 'none' } : {}} className="homeAway" onClick={(e) => { setRange(!range), document.querySelectorAll('.group__btn')[0].scrollIntoView() }}>
           <span>Casa</span>
           <div className={`range ${range && 'away'}`}>
             <div className={`position ${range && 'away'}`}></div>
@@ -174,6 +174,7 @@ const App = () => {
 
         {matches && option === 'mat' &&
           <div className="matches">
+            {matches.currentMatches.length > 0 && <h2 className='matches__title'>Rodada Atual</h2>}
             {matches.lastMatches.map((element) => <Matches key={uuidv4()} element={element} selectMatch={selectMatch} />)}
             {matches.currentMatches.map((element) => <Matches key={uuidv4()} element={element} selectMatch={selectMatch} />)}
             <h2 className='matches__title'>Próxima Rodada</h2>
