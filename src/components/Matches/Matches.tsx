@@ -3,6 +3,7 @@ import { ApiMatches } from '../../interfaces/interface'
 import { lineUp } from '../../interfaces/lineUp'
 import './Matches.css'
 import { getLineUp } from '../../api/sofaScore'
+import LineUp from '../LineUp/LineUp'
 
 interface MatchesProps {
     element: ApiMatches
@@ -39,40 +40,10 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
                 <i title='Ao vivo' className="fa-regular fa-eye matches__card-live"></i>
             }
             <>
-                <i title='Escalação' className="fa-solid fa-list-ol matches__card-lineUp" onMouseEnter={loadLineUp} onMouseLeave={() => setShowLineUp(false)}></i>
-                {showLineUp && !lineUp && <div className="lineUp__box">
-                    <h3 style={{ gridColumn: 'span 2', margin: '0 auto' }}>Escalação não confirmada!</h3>
-                </div>}
+                <i className="fa-solid fa-list-ol matches__card-lineUp" onMouseEnter={loadLineUp} onMouseLeave={() => setShowLineUp(false)}></i>
+                {showLineUp && !lineUp && <h3 className="lineUp dataless">Escalação não confirmada!</h3>}
 
-                {showLineUp && lineUp && <div className="lineUp__box">
-                    <div className="lineUp__box-list">
-                        <h3><img src={`https://api.sofascore.app/api/v1/team/${element.homeTeam.id}/image`} alt={element.homeTeam.name} />{element.homeTeam.shortName}</h3>
-                        <h3 style={{ margin: '0 0 10px' }}>{lineUp.home.formation}</h3>
-                        {lineUp.home.players.map(e => {
-                            if (e.substitute) return
-                            return <div className="lineUp__box-item">
-                                <img src={`https://api.sofascore.app/api/v1/player/${e.player.id}/image`} alt='' />
-                                <p className={`pos ${e.position}`}>{e.position}</p>
-                                <h4>{e.player.shortName}</h4>
-                                {e.captain && <p className='captain'>C</p>}
-                            </div>
-                        })}
-                    </div>
-                    <div className="lineUp__box-list">
-                        <h3><img src={`https://api.sofascore.app/api/v1/team/${element.awayTeam.id}/image`} alt={element.awayTeam.name} />{element.awayTeam.shortName}</h3>
-                        <h3 style={{ margin: '0 0 10px' }}>{lineUp.away.formation}</h3>
-                        {lineUp.away.players.map(e => {
-                            if (e.substitute) return
-                            return <div className="lineUp__box-item reverse">
-                                <img src={`https://api.sofascore.app/api/v1/player/${e.player.id}/image`} alt='' />
-                                <p className={`pos ${e.position}`}>{e.position}</p>
-                                <h4>{e.player.shortName}</h4>
-                                {e.captain && <p className='captain'>C</p>}
-                            </div>
-                        })}
-                    </div>
-
-                </div>}
+                {showLineUp && lineUp && <LineUp lineUp={lineUp} matchTeans={element} />}
             </>
 
         </div >
