@@ -1,5 +1,6 @@
-import './H2h.css'
 import { ApiH2h } from '../../interfaces/h2h'
+import './H2h.css'
+
 
 interface H2hProps {
     h2h: ApiH2h[]

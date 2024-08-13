@@ -5,6 +5,7 @@ import './Matches.css'
 import { getH2h, getLineUp } from '../../api/sofaScore'
 import LineUp from '../LineUp/LineUp'
 import { ApiH2h } from '../../interfaces/h2h'
+
 import H2h from '../H2h/H2h'
 
 interface MatchesProps {
