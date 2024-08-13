@@ -46,7 +46,7 @@
     width: 30px;
 }
 
-.matches__card span {
+.matches__card-date {
     color: #888;
     font-size: 14px;
     margin: 5px;
@@ -70,6 +70,14 @@
     top: 10px;
 }
 
+.matches__card-h2h {
+    color: #2896df;
+    font-size: 20px;
+    position: absolute;
+    left: 50px;
+    top: 10px;
+}
+
 
 @keyframes pulse {
     100% {
@@ -90,6 +98,6 @@
     }
 
     .matches__card-lineUp {
-        display: none;
+        /* display: none; */
     }
 }

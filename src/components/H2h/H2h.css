@@ -1,0 +1,33 @@
+.h2h__item {
+    display: grid;
+    grid-template-columns: 40% 10% 40%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0 10px;
+
+    &:hover {
+        background: linear-gradient(to right, transparent, #d9d9d9, transparent);
+    }
+}
+
+.h2h .item__date {
+    grid-column: span 3;
+    font-size: 13px;
+    color: #555;
+}
+
+
+.h2h .item__data {
+    display: flex;
+    gap: 0 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.h2h .item__data.reverse {
+    flex-direction: row-reverse;
+}
+
+.h2h .item__data {
+    color: #444;
+}

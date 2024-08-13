@@ -81,7 +81,20 @@ const getLineUp = async (matcheId: number) => {
 
 }
 
-export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp }
+const getH2h = async (customId: string) => {
+
+    // matcheId = 12290215
+    try {
+        const response = await axios(`https://www.sofascore.com/api/v1/event/${customId}/h2h/events`)
+        return response.data.events
+    } catch (error) {
+        console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
+    }
+
+}
+
+export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp, getH2h }
 
 
 

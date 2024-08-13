@@ -75,6 +75,7 @@ export interface ApiMatches {
     [key: string]: any
     id: number
     startTimestamp: number
+    customId: string // id h2h
     homeScore: {
         current: number
     }
