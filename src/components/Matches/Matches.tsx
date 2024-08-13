@@ -21,11 +21,10 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
     const [showH2h, setShowH2h] = useState<boolean>(false)
 
 
-    const handleMatch = (e) => {
+    const handleMatch = (e: any) => {
         if (e.target.tagName === 'I') return
         selectMatch(element.homeTeam.id, element.awayTeam.id)
         document.querySelectorAll('.item')[0].scrollIntoView({ behavior: 'smooth' })
-
     }
 
     const loadLineUp = async () => {
