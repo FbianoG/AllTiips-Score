@@ -22,7 +22,10 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
 
 
     const handleMatch = (e: any) => {
+        console.log(e.target)
         if (e.target.tagName === 'I') return
+        if (showLineUp) return
+        if (showH2h) return setShowH2h(false)
         selectMatch(element.homeTeam.id, element.awayTeam.id)
         document.querySelectorAll('.item')[0].scrollIntoView({ behavior: 'smooth' })
     }
@@ -62,7 +65,7 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
             <>
                 <i className="fa-solid fa-list-ol matches__card-lineUp" onMouseEnter={loadLineUp} onMouseLeave={() => setShowLineUp(false)}></i>
                 {showLineUp && !lineUp && <h3 className="lineUp dataless">Escalação não confirmada!</h3>}
-                {showLineUp && lineUp && <LineUp lineUp={lineUp} matchTeans={element} />}
+                {showLineUp && lineUp && <LineUp lineUp={lineUp} matchTeans={element} onClick={setShowLineUp} />}
             </>
 
             <i className="fa-solid fa-superscript matches__card-h2h" title='Confrontos' onMouseEnter={loadH2h} onMouseLeave={() => setShowH2h(false)}></i>

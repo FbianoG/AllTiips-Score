@@ -5,15 +5,15 @@ import { ApiMatches } from '../../interfaces/interface'
 interface LineUpProps {
     lineUp: lineUp
     matchTeans: ApiMatches
+    onClick: (a: boolean) => void
 }
 
-const LineUp: React.FC<LineUpProps> = (props) => {
-    const lineUp = props.lineUp
-    const matchTeans = props.matchTeans
+const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
+
 
     return (
 
-        <div className="lineUp">
+        <div className="lineUp" onClick={() => onClick(false)}>
 
             <div className="lineUp__list">
                 <h3 className='lineUp__team'><img src={`https://api.sofascore.app/api/v1/team/${matchTeans.homeTeam.id}/image`} alt={matchTeans.homeTeam.name} />{matchTeans.homeTeam.shortName}</h3>
