@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './H2h.css'
 import { ApiH2h } from '../../interfaces/H2h'
 
