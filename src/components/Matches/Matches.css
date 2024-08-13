@@ -63,19 +63,22 @@
 }
 
 .matches__card-lineUp {
+    padding: 7px;
+    position: absolute;
+    left: 3px;
+    top: 3px;
     color: #2896df;
     font-size: 20px;
-    position: absolute;
-    left: 10px;
-    top: 10px;
+
 }
 
 .matches__card-h2h {
+    padding: 7px;
+    position: absolute;
+    left: 45px;
+    top: 3px;
     color: #2896df;
     font-size: 20px;
-    position: absolute;
-    left: 50px;
-    top: 10px;
 }
 
 
@@ -97,7 +100,4 @@
         padding: 5px;
     }
 
-    .matches__card-lineUp {
-        /* display: none; */
-    }
 }
