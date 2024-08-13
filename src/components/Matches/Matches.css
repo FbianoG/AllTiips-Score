@@ -55,12 +55,73 @@
 
 .matches__card-live {
     color: #2896df;
-    font-size: 24px;
+    font-size: 20px;
     position: absolute;
     right: 10px;
     top: 10px;
     animation: pulse 1s linear infinite alternate;
 }
+
+.matches__card-lineUp {
+    color: #2896df;
+    font-size: 20px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.matches__card .lineUp__box {
+    width: 400px;
+    padding: 1rem;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    backdrop-filter: blur(5px);
+    transform: translate(-50%);
+    background: #fff9;
+    box-shadow: 3px 3px 10px #0003;
+    border-radius: .5rem;
+    z-index: 8;
+}
+
+.matches__card .lineUp__box-item {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.matches__card .lineUp__box-list h3 {
+    white-space: nowrap;
+    text-overflow: hidden;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 500;
+
+}
+
+.matches__card .lineUp__box-item h4 {
+    color: #555;
+    font-weight: 600;
+}
+
+.matches__card .lineUp__box-item.reverse {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+}
+
+.matches__card .lineUp__box-item img {
+    width: 30px;
+    border-radius: 50%;
+}
+
+.matches__card .lineUp__box-item .captain {
+    font-weight: 700;
+    color: dodgerblue;
+}
+
 
 @keyframes pulse {
     100% {
@@ -78,5 +139,9 @@
     .matches__card {
         width: 100%;
         padding: 5px;
+    }
+
+    .matches__card-lineUp {
+        display: none;
     }
 }

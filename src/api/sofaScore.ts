@@ -67,7 +67,21 @@ const getPlayerDetails = async (playerId: number, leagueId: string, season: stri
     }
 }
 
-export { getTopPlayers, getTeams, getMatches, getPlayerDetails }
+
+const getLineUp = async (matcheId: number) => {
+
+    // matcheId = 12290215
+    try {
+        const response = await axios(`https://www.sofascore.com/api/v1/event/${matcheId}/lineups`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
+    }
+
+}
+
+export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp }
 
 
 
