@@ -1,6 +1,26 @@
+.h2h {
+    width: 400px;
+    padding: 1rem;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%);
+    background: #fff;
+    box-shadow: 0px 3px 10px #0003;
+    border-radius: .5rem;
+    z-index: 8;
+}
+
+.h2h .box__title {
+    color: dodgerblue;
+    text-align: center;
+    padding: 0 ;
+    margin: 0 0 10px ;
+}
+
 .h2h__item {
     display: grid;
-    grid-template-columns: 40% 10% 40%;
+    grid-template-columns: 45% 5% 45%;
     align-items: center;
     justify-content: space-between;
     margin: 5px 0 10px;
@@ -9,6 +29,7 @@
         background: linear-gradient(to right, transparent, #d9d9d9, transparent);
     }
 }
+
 
 .h2h .item__date {
     grid-column: span 3;
@@ -30,4 +51,14 @@
 
 .h2h .item__data {
     color: #444;
+}
+
+
+.h2h .item__data-name  {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.h2h .item__data-name img {
+    width: 25px;
 }
