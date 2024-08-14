@@ -94,7 +94,17 @@ const getH2h = async (customId: string) => {
 
 }
 
-export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp, getH2h }
+const getMatchDetails = async (matchId: number) => {
+    try {
+        const response = await axios.get(`https://www.sofascore.com/api/v1/event/${matchId}/statistics`)
+        return response.data.statistics[0].groups[0].statisticsItems
+    } catch (error) {
+        console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
+    }
+}
+
+export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp, getH2h, getMatchDetails }
 
 
 

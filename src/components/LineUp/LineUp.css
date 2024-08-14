@@ -30,6 +30,9 @@
 .lineUp__item-name {
     color: #555;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .lineUp__item.reverse {

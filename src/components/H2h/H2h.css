@@ -14,29 +14,27 @@
 .h2h .box__title {
     color: dodgerblue;
     text-align: center;
-    padding: 0 ;
-    margin: 0 0 10px ;
+    padding: 0;
+    margin: 0 0 10px;
 }
 
 .h2h__item {
+    margin: 5px 0 10px;
     display: grid;
     grid-template-columns: 45% 5% 45%;
     align-items: center;
     justify-content: space-between;
-    margin: 5px 0 10px;
 
     &:hover {
-        background: linear-gradient(to right, transparent, #d9d9d9, transparent);
+        background: linear-gradient(to right, transparent, #eee, transparent);
     }
 }
-
 
 .h2h .item__date {
     grid-column: span 3;
     font-size: 13px;
     color: #555;
 }
-
 
 .h2h .item__data {
     display: flex;
@@ -53,12 +51,36 @@
     color: #444;
 }
 
-
-.h2h .item__data-name  {
+.h2h .item__data-name {
     display: flex;
     align-items: center;
     gap: 5px;
 }
+
 .h2h .item__data-name img {
     width: 25px;
+}
+
+
+.h2h .item__data-status {
+    grid-column: span 3;
+    display: flex;
+    gap: 10px;
+    /* justify-content: space-between; */
+}
+
+.h2h .item__data-status-row {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+    color: #444;
+    margin: 0 0 5px ;
+}
+
+.h2h .item__data-status-row-value {
+    color: #fdfdfd;
+    font-weight: 500;
+    padding: .25rem;
+    border-radius: .25rem;
 }

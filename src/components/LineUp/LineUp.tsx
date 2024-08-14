@@ -15,14 +15,14 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
 
         <div className="lineUp" onClick={() => onClick(false)}>
 
+            
+
             <div className="lineUp__list">
                 <h3 className='lineUp__team'><img src={`https://api.sofascore.app/api/v1/team/${matchTeans.homeTeam.id}/image`} alt={matchTeans.homeTeam.name} />{matchTeans.homeTeam.shortName}</h3>
                 <h3 style={{ margin: '0 0 10px', fontSize: '14px' }}>{lineUp.home.formation}</h3>
 
                 {lineUp.home.players.map(element => {
-
                     if (element.substitute) return
-
                     return (
                         <div className='lineUp__item' >
                             <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
@@ -39,9 +39,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                 <h3 style={{ margin: '0 0 10px', fontSize: '14px' }}>{lineUp.away.formation}</h3>
 
                 {lineUp.away.players.map(element => {
-
                     if (element.substitute) return
-
                     return (
                         <div className='lineUp__item reverse'>
                             <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
@@ -50,7 +48,6 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                             {element.captain && <p className='captain'>C</p>}
                         </div>
                     )
-
                 })}
             </div>
 
