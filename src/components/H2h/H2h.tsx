@@ -61,7 +61,7 @@ const H2h: React.FC<H2hProps> = ({ h2h, onClick }) => {
                             <span className='item__data-name'>{matchView.awayTeam.shortName} <img src={`https://api.sofascore.app/api/v1/team/${matchView.awayTeam.id}/image`} alt={matchView.awayTeam.shortName} /> </span>
                             <h5 className='item__data-score'>{matchView.awayScore.display}</h5>
                         </div>
-                        {matchDetails.map((element, index) => {
+                        {matchDetails.map(element => {
 
                             const nameStatus = status[element.name]
 
