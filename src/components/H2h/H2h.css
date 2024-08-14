@@ -8,6 +8,7 @@
     background: #fff;
     box-shadow: 0px 3px 10px #0003;
     border-radius: .5rem;
+    cursor: default;
     z-index: 8;
 }
 
@@ -24,6 +25,7 @@
     grid-template-columns: 45% 5% 45%;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 
     &:hover {
         background: linear-gradient(to right, transparent, #eee, transparent);
@@ -55,6 +57,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+
 }
 
 .h2h .item__data-name img {
@@ -75,7 +78,12 @@
     width: 50%;
     justify-content: space-between;
     color: #444;
-    margin: 0 0 5px ;
+    margin: 0 0 5px;
+
+    & span {
+        white-space: nowrap;
+        overflow: hidden;
+    }
 }
 
 .h2h .item__data-status-row-value {
@@ -83,4 +91,44 @@
     font-weight: 500;
     padding: .25rem;
     border-radius: .25rem;
+}
+
+.box__btn-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #e66a6a;
+    transition: .3s;
+
+    &:hover {
+        opacity: .7;
+    }
+}
+
+.box__btn-back {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    transition: .3s;
+
+    &:hover {
+        opacity: .7;
+    }
+}
+
+
+/* MB <= 767 - TB <= 1023 - */
+@media screen and (max-width: 767px) {
+    .h2h {
+        width: 100%;
+    }
 }

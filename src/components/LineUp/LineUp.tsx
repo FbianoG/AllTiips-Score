@@ -13,9 +13,9 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
 
     return (
 
-        <div className="lineUp" onClick={() => onClick(false)}>
+        <div className="lineUp">
 
-            
+            <button className='box__btn-close' title='Fechar' onClick={() => onClick(false)}><i className="fa-solid fa-xmark"></i></button>
 
             <div className="lineUp__list">
                 <h3 className='lineUp__team'><img src={`https://api.sofascore.app/api/v1/team/${matchTeans.homeTeam.id}/image`} alt={matchTeans.homeTeam.name} />{matchTeans.homeTeam.shortName}</h3>
@@ -24,7 +24,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                 {lineUp.home.players.map(element => {
                     if (element.substitute) return
                     return (
-                        <div className='lineUp__item' >
+                        <div key={element.player.id} className='lineUp__item' >
                             <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
                             <p className={`pos ${element.position}`}>{element.position}</p>
                             <p className='lineUp__item-name'>{element.player.shortName}</p>
@@ -41,7 +41,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                 {lineUp.away.players.map(element => {
                     if (element.substitute) return
                     return (
-                        <div className='lineUp__item reverse'>
+                        <div key={element.player.id} className='lineUp__item reverse'>
                             <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
                             <p className={`pos ${element.position}`}>{element.position}</p>
                             <p className='lineUp__item-name'>{element.player.shortName}</p>

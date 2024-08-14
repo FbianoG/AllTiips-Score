@@ -1,15 +1,16 @@
-import { useState } from 'react'
-import { getMatchDetails } from '../../api/sofaScore'
-import { ApiH2h } from '../../interfaces/H2h'
 import './H2h.css'
+import { useState } from 'react'
+import { ApiH2h } from '../../interfaces/H2h'
+import { getMatchDetails } from '../../api/sofaScore'
 import { ApiMatchesDetails } from '../../interfaces/matchDetails'
 
 
 interface H2hProps {
     h2h: ApiH2h[]
+    onClick: (a: boolean) => void
 }
 
-const H2h: React.FC<H2hProps> = ({ h2h }) => {
+const H2h: React.FC<H2hProps> = ({ h2h, onClick }) => {
 
     const lastH2h = h2h.filter(element => element.status.type === 'finished')
 
@@ -28,10 +29,25 @@ const H2h: React.FC<H2hProps> = ({ h2h }) => {
         }
     }
 
+    const status: { [key: string]: string } = {
+        'Ball possession': 'Posse de Bola',
+        'Big chances': 'Chances Criadas',
+        'Total shots': 'Finalizações',
+        'Goalkeeper saves': 'Defesas',
+        'Corner kicks': 'Escanteios',
+        'Fouls': 'Faltas',
+        'Passes': 'Passes',
+        'Tackles': 'Desarmes',
+        'Yellow cards': 'C.Amarelo',
+        'Red cards': 'C.Vermelho'
+    }
+
     return (
         <div className='h2h'>
+            <button className='box__btn-close' title='Fechar' onClick={() => onClick(false)}><i className="fa-solid fa-xmark"></i></button>
             {matchDetails && matchView &&
                 <>
+                    <button className='box__btn-back' title='Voltar' onClick={() => setMatchDetails(undefined)}><i className="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i></button>
                     <h3 className='box__title'>Dados do Jogo</h3>
                     <div className="h2h__item">
                         <span className='item__date' >{new Date(matchView.startTimestamp * 1000).toLocaleString().slice(0, 10)}</span>
@@ -45,23 +61,26 @@ const H2h: React.FC<H2hProps> = ({ h2h }) => {
                             <span className='item__data-name'>{matchView.awayTeam.shortName} <img src={`https://api.sofascore.app/api/v1/team/${matchView.awayTeam.id}/image`} alt={matchView.awayTeam.shortName} /> </span>
                             <h5 className='item__data-score'>{matchView.awayScore.display}</h5>
                         </div>
-                        {matchDetails.map(element => {
+                        {matchDetails.map((element, index) => {
+
+                            const nameStatus = status[element.name]
+
+                            if (!nameStatus) return
 
                             return (
-                                <div className="item__data-status">
+                                <div key={element.key} className="item__data-status">
                                     <div className="item__data-status-row">
-                                        <span>{element.name}</span>
-                                        <span className='item__data-status-row-value' style={element.awayValue < element.homeValue ? { background: '#71cc56' } : { background: '#ed7272' }}>{element.home}</span>
+                                        <span>{nameStatus}</span>
+                                        <span className='item__data-status-row-value' style={element.awayValue < element.homeValue ? { background: '#4caf50' } : { background: '#ff4444' }}>{element.home}</span>
                                     </div>
                                     <div className="item__data-status-row">
-                                        <span className='item__data-status-row-value' style={element.awayValue > element.homeValue ? { background: '#71cc56' } : { background: '#ed7272' }}>{element.away}</span>
-                                        <span >{element.name}</span>
+                                        <span className='item__data-status-row-value' style={element.awayValue > element.homeValue ? { background: '#4caf50' } : { background: '#ff4444' }}>{element.away}</span>
+                                        <span >{nameStatus}</span>
                                     </div>
                                 </div>
                             )
                         })}
                     </div>
-
 
                 </>
             }
@@ -73,7 +92,7 @@ const H2h: React.FC<H2hProps> = ({ h2h }) => {
                     {lastH2h.map((element, index) => {
                         if (index > 4) return
                         return (
-                            <div className="h2h__item" onClick={() => loadMatch(element)}>
+                            <div key={element.id} className="h2h__item" onClick={() => loadMatch(element)}>
                                 <span className='item__date' >{new Date(element.startTimestamp * 1000).toLocaleString().slice(0, 10)}</span>
                                 <span className='item__date'>{element.tournament.name} </span>
                                 <div className="item__data">

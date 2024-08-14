@@ -1,11 +1,11 @@
+import './Matches.css'
+import H2h from '../H2h/H2h'
+import LineUp from '../LineUp/LineUp'
 import { useState } from 'react'
 import { ApiMatches } from '../../interfaces/interface'
 import { lineUp } from '../../interfaces/lineUp'
-import './Matches.css'
 import { getH2h, getLineUp } from '../../api/sofaScore'
-import LineUp from '../LineUp/LineUp'
 import { ApiH2h } from '../../interfaces/H2h'
-import H2h from '../H2h/H2h'
 
 interface MatchesProps {
     element: ApiMatches
@@ -22,10 +22,9 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
 
 
     const handleMatch = (e: any) => {
-        console.log(e.target)
         if (e.target.tagName === 'I') return
         if (showLineUp) return
-        if (showH2h) return 
+        if (showH2h) return
         selectMatch(element.homeTeam.id, element.awayTeam.id)
         document.querySelectorAll('.item')[0].scrollIntoView({ behavior: 'smooth' })
     }
@@ -71,7 +70,7 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
 
             {showLineUp && lineUp && <LineUp lineUp={lineUp} matchTeans={element} onClick={setShowLineUp} />}
 
-            {showH2h && h2h && <H2h h2h={h2h} />}
+            {showH2h && h2h && <H2h h2h={h2h} onClick={setShowH2h} />}
 
         </div >
     )
