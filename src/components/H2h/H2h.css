@@ -57,6 +57,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    color: #1e90ff;
 
 }
 
@@ -129,6 +130,6 @@
 /* MB <= 767 - TB <= 1023 - */
 @media screen and (max-width: 767px) {
     .h2h {
-        width: 100%;
+        width: 105%;
     }
 }

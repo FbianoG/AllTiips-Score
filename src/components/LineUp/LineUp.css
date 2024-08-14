@@ -73,6 +73,6 @@
 /* MB <= 767 - TB <= 1023 - */
 @media screen and (max-width: 767px) {
     .lineUp {
-        width: 100%;
+        width: 105%;
     }
 }

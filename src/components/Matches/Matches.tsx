@@ -62,11 +62,14 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
             <h3 style={{ padding: '0' }}>X</h3>
             <h3><img src={`https://api.sofascore.app/api/v1/team/${element.awayTeam.id}/image`} alt={element.awayTeam.name} />{element.awayTeam.shortName}  ({element.awayScore.current})</h3>
             <span className='matches__card-date'>{new Date(element.startTimestamp * 1000).toLocaleString().slice(0, -3)}h</span>
-            {element.status.type === 'inprogress' && <i title='Ao vivo' className="fa-regular fa-eye matches__card-live"></i>}
+            {element.status.type === 'inprogress' && <i className="fi fi-sr-live-alt matches__card-live" title='Ao vivo'></i>}
 
-            <i className="fa-solid fa-list-ol matches__card-lineUp" onMouseEnter={loadLineUp} ></i>
+            <i style={{ transform: 'rotate(90deg)' }} className="fi fi-rr-court-sport matches__card-lineUp" onMouseEnter={loadLineUp}></i>
 
-            <i className="fa-solid fa-superscript matches__card-h2h" onMouseEnter={loadH2h}></i>
+            {/* <i className="fa-solid fa-superscript matches__card-h2h" onMouseEnter={loadH2h}></i> */}
+            <i className="fi fi-rr-apps-sort matches__card-h2h" onMouseEnter={loadH2h} ></i>
+
+
 
             {showLineUp && lineUp && <LineUp lineUp={lineUp} matchTeans={element} onClick={setShowLineUp} />}
 
