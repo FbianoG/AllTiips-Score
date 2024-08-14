@@ -20,6 +20,11 @@
         "name": "Libertadores"
     },
     {
+        "leagueId": "480",
+        "season": "57297",
+        "name": "SulAmericana"
+    },
+    {
         "leagueId": "7",
         "season": "61644",
         "name": "Champions League"
