@@ -59,7 +59,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
 
             <button className='box__btn-close' title='Fechar' onClick={() => onClick(false)}><i className="fa-solid fa-xmark"></i></button>
 
-            {lineUp.done && <h3 style={{gridColumn:'span 2'}}>Escalação</h3>}
+            {lineUp.done && <h3 style={{ gridColumn: 'span 2' }}>Escalação</h3>}
 
             {!lineUp.done && showPlayerDetails && playerDetails && selectPlayer &&
                 <>
@@ -104,7 +104,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                 </>
             }
 
-            {!lineUp.done && !showPlayerDetails && !playerDetails &&
+            {!lineUp.done && !showPlayerDetails && !playerDetails && lineUp.away && lineUp.home &&
                 <>
 
                     <ul className="lineUp__list">
