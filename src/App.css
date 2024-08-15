@@ -146,7 +146,7 @@ body {
     padding: 1rem;
   }
 
-  ul:nth-of-type(2) {
+  .list:nth-of-type(2) {
     display: none;
   }
 
