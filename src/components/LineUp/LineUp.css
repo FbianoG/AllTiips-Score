@@ -24,8 +24,14 @@
 
 .lineUp__item {
     display: flex;
+    align-items: center;
     gap: 10px;
     overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+        background: linear-gradient(to right, transparent, #ddd, transparent);
+    }
 }
 
 .lineUp__item-name {
@@ -81,7 +87,7 @@
     margin: 0 0 10px;
 }
 
-.lineUp__player-img{
+.lineUp__player-img {
     width: 150px;
     margin: 0 0 10px;
     box-shadow: 0px 0px 5px #0003;
