@@ -8,9 +8,9 @@ import { v4 as uuidv4 } from 'uuid'
 
 interface InputTeansProps {
     variant: 'teans' | 'statistics'
-    leagueId: string
+    leagueId: number
     option: 'pla' | 'tea' | 'mat'
-    season?: string
+    season?: number
     team?: string
     onChange: React.Dispatch<React.SetStateAction<string | undefined>>
 }
@@ -36,7 +36,7 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
             {variant === 'teans' &&
                 <select className="input__select" style={option == 'mat' ? { display: 'none' } : {}} onChange={(e) => onChange(e.target.value)} defaultValue=''>
                     <option value="" >Time</option>
-                    {teams && leagueId !== '' && teams.map((row: any) => (
+                    {teams && leagueId !== 0 && teams.map((row: any) => (
                         <optgroup key={uuidv4()} label={row.name} >
                             {row.rows.map((element: ApiTeams) => <option key={uuidv4()} selected={Number(team) == element.team.id && true} value={element.team.id}>{element.position}º - {element.team.shortName} ({element.points})</option>)}
                         </optgroup>
@@ -46,7 +46,7 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
             }
 
             {/* Fundamentos Futebol */}
-            {variant === 'statistics' && leagueId !== '132' && leagueId !== '' &&
+            {variant === 'statistics' && leagueId !== 132 && leagueId !== 0 &&
                 < select style={option !== 'pla' ? { display: 'none' } : {}} className='input__select type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
                     <option value="" disabled >Fundamentos</option>
                     <option value="goals">Gols</option>
@@ -60,7 +60,7 @@ const InputTeans: React.FC<InputTeansProps> = ({ onChange, variant, leagueId, se
             }
 
             {/* Fundamentos Basquete */}
-            {variant === 'statistics' && leagueId === '132' &&
+            {variant === 'statistics' && leagueId === 132 &&
                 < select className='input__select type' onChange={(e) => onChange(e.target.value)} defaultValue=''>
                     <option value="" disabled >Fundamento</option>
                     <option value="points">Pontos</option>

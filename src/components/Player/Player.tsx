@@ -1,13 +1,14 @@
 import './Player.css'
-import { ApiPlayerDetail, ApiPlayerMoreDetails } from '../../interfaces/interface'
+import { ApiPlayerDetail } from '../../interfaces/interface'
 import { useEffect, useState } from 'react'
 import { getPlayerDetails } from '../../api/sofaScore'
+import { ApiPlayerMoreDetails } from '../../interfaces/playerDetails'
 
 interface PlayerProps {
     element: ApiPlayerDetail
     type: string
-    leagueId: string
-    season: string
+    leagueId: number
+    season: number
     aside?: boolean
     savePlayer: (a: ApiPlayerDetail, b: number) => void
 }

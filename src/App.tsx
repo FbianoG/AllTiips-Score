@@ -31,8 +31,8 @@ const App = () => {
   const [option, setOption] = useState<'pla' | 'tea' | 'mat'>('mat') // Viewing option
   const [type, setType] = useState<string>() // Selected individual statistics
   const [leagues, setLeagues] = useState<ApiLeagues[]>([]) // List of championship
-  const [leagueId, setLeagueId] = useState<string>('325') // Selected championship
-  const [season, setSeason] = useState<string>('58766') // Championship season
+  const [leagueId, setLeagueId] = useState<number>(325) // Selected championship
+  const [season, setSeason] = useState<number>(58766) // Championship season
   const [saves, setSaves] = useState<ApiPlayerDetail[]>([]) // Saved players list
   const [matches, setMatches] = useState<ApiMatchesObject>() // Current round matches
   const [loading, setLoading] = useState<boolean>(false) // Show loading
@@ -67,14 +67,14 @@ const App = () => {
     }
   }
 
-  const changeLeague = async (id: string) => {
+  const changeLeague = async (id: number) => {
     setTeamA(undefined)
     setTeamB(undefined)
     setType(undefined)
-    setLeagueId('')
-    const data = leagues.find((element) => element.leagueId === id)
+    setLeagueId(0)
+    const data = leagues.find((element: any) => element.leagueId == id)
     if (data) {
-      setSeason(data.season)
+      setSeason(Number(data.season))
       setTimeout(() => { setLeagueId(id) }, 0)
     }
   }
@@ -117,11 +117,11 @@ const App = () => {
 
       <div className="item">
 
-        <select className='input__select type' onChange={(e) => changeLeague(e.target.value)} >
+        <select className='input__select type' onChange={(e) => changeLeague(Number(e.target.value))} >
           {leagues && leagues.map((element: any) => <option key={element.leagueId} value={element.leagueId}>{element.name}</option>)}
         </select>
 
-        {leagueId !== '' &&
+        {leagueId !== 0 &&
           <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} option={option} />
         }
 

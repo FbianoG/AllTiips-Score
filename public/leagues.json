@@ -1,67 +1,67 @@
 [
     {
-        "leagueId": "325",
-        "season": "58766",
+        "leagueId": 325,
+        "season": 58766,
         "name": "Brasileirão - Serie A"
     },
     {
-        "leagueId": "390",
-        "season": "59015",
+        "leagueId": 390,
+        "season": 59015,
         "name": "Brasileirão - Serie B"
     },
     {
-        "leagueId": "373",
-        "season": "58134",
+        "leagueId": 373,
+        "season": 58134,
         "name": "Copa do Brasil"
     },
     {
-        "leagueId": "384",
-        "season": "57296",
+        "leagueId": 384,
+        "season": 57296,
         "name": "Libertadores"
     },
     {
-        "leagueId": "480",
-        "season": "57297",
+        "leagueId": 480,
+        "season": 57297,
         "name": "SulAmericana"
     },
     {
-        "leagueId": "7",
-        "season": "61644",
+        "leagueId": 7,
+        "season": 61644,
         "name": "Champions League"
     },
     {
-        "leagueId": "17",
-        "season": "61627",
+        "leagueId": 17,
+        "season": 61627,
         "name": "Premier League"
     },
     {
-        "leagueId": "8",
-        "season": "61643",
+        "leagueId": 8,
+        "season": 61643,
         "name": "La Liga"
     },
     {
-        "leagueId": "35",
-        "season": "63516",
+        "leagueId": 35,
+        "season": 63516,
         "name": "Bundesliga"
     },
     {
-        "leagueId": "23",
-        "season": "63515",
+        "leagueId": 23,
+        "season": 63515,
         "name": "Serie A"
     },
     {
-        "leagueId": "34",
-        "season": "61736",
+        "leagueId": 34,
+        "season": 61736,
         "name": "Ligue 1"
     },
     {
-        "leagueId": "155",
-        "season": "57478",
+        "leagueId": 155,
+        "season": 57478,
         "name": "Liga Argentina"
     },
     {
-        "leagueId": "132",
-        "season": "54105",
+        "leagueId": 132,
+        "season": 54105,
         "name": "NBA"
     }
 ]

@@ -1,9 +1,9 @@
 import axios from "axios"
 import { ApiMatches } from "../interfaces/interface"
 
-const getTopPlayers = async (teamId: string, leagueId: string, season: string) => { // Estatísticas dos jogadores e do time
+const getTopPlayers = async (teamId: string, leagueId: number, season: number) => { // Estatísticas dos jogadores e do time
     try {
-        if (leagueId !== '132') {
+        if (leagueId !== 132) {
             const [responsePlayers, responseTeams] = await Promise.allSettled([
                 axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/top-players/overall`),
                 axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/unique-tournament/${leagueId}/season/${season}/statistics/overall`)
@@ -22,7 +22,7 @@ const getTopPlayers = async (teamId: string, leagueId: string, season: string) =
     }
 }
 
-const getTeams = async (leagueId: string, season: string) => { // Times participantes da liga
+const getTeams = async (leagueId: number, season: number) => { // Times participantes da liga
     try {
         if (!leagueId || !season) return
         const response = await axios.get(`https://www.sofascore.com/api/v1/unique-tournament/${leagueId}/season/${season}/standings/total`)
@@ -34,7 +34,7 @@ const getTeams = async (leagueId: string, season: string) => { // Times particip
 }
 
 
-const getMatches = async (leagueId: string, season: string) => {
+const getMatches = async (leagueId: number, season: number) => {
     try {
         if (!leagueId || !season) return
         let [nMatches, lMatches, round] = await Promise.allSettled([
@@ -56,11 +56,10 @@ const getMatches = async (leagueId: string, season: string) => {
 }
 
 
-const getPlayerDetails = async (playerId: number, leagueId: string, season: string) => {
+const getPlayerDetails = async (playerId: number, leagueId: number, season: number) => {
     try {
         const response = await axios.get(`https://www.sofascore.com/api/v1/player/${playerId}/unique-tournament/${leagueId}/season/${season}/statistics/overall`)
-        const obj = response.data.statistics
-        return obj
+        return response.data.statistics
     } catch (error) {
         console.log(error)
         throw new Error("Ocorreu algum erro. Tente Novamente!");

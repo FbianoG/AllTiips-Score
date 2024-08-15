@@ -100,13 +100,12 @@ export interface ApiMatches {
     status: {
         type: 'inprogress' | 'finished' | 'notstarted'
     }
-}
-
-export interface ApiPlayerMoreDetails {
-    matchesStarted: number
-    appearances: number
-    touches: number
-    minutesPlayed: number
-    fouls: number
-    [key: string]: string | number
+    season: {
+        id: number
+    }
+    tournament: {
+        uniqueTournament: {
+            id: number
+        }
+    }
 }
