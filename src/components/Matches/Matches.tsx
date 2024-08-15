@@ -20,7 +20,6 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
     const [h2h, setH2h] = useState<ApiH2h[]>()
     const [showH2h, setShowH2h] = useState<boolean>(false)
 
-
     const handleMatch = (e: any) => {
         if (e.target.tagName === 'I') return
         if (showLineUp) return
@@ -33,15 +32,14 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
         setShowLineUp(true)
         setShowH2h(false)
         try {
+            console.log(lineUp)
             if (lineUp) return
             const response = await getLineUp(element.id)
             if (response) setLineUp(response)
         } catch (error) {
             console.log(error)
-            setLineUp({ done: 'not' })
         }
     }
-
 
     const loadH2h = async () => {
         setShowH2h(true)
@@ -65,14 +63,15 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
             <span className='matches__card-date'>{new Date(element.startTimestamp * 1000).toLocaleString().slice(0, -3)}h</span>
             {element.status.type === 'inprogress' && <i className="fi fi-sr-live-alt matches__card-live" title='Ao vivo'></i>}
 
-            <i style={{ transform: 'rotate(90deg)' }} className="fi fi-rr-court-sport matches__card-lineUp" onMouseEnter={loadLineUp}></i>
-
-            {/* <i className="fa-solid fa-superscript matches__card-h2h" onMouseEnter={loadH2h}></i> */}
-            <i className="fi fi-rr-apps-sort matches__card-h2h" onMouseEnter={loadH2h} ></i>
-
-
+            <button className='matches__card-lineUp'><i style={{ transform: 'rotate(90deg)' }} className="fi fi-rr-court-sport " onMouseEnter={loadLineUp}></i></button>
+            <button className='matches__card-h2h'><i className="fi fi-rr-apps-sort " onMouseEnter={loadH2h} ></i></button>
 
             {showLineUp && lineUp && <LineUp lineUp={lineUp} matchTeans={element} onClick={setShowLineUp} />}
+
+            {!lineUp && showLineUp && <div className='h2h' >
+                <button className='box__btn-close' title='Fechar' onClick={() => setShowLineUp(false)}><i className="fa-solid fa-xmark"></i></button>
+                <h3 className='box__title'>Escalação não confirmada</h3>
+            </div>}
 
             {showH2h && h2h && <H2h h2h={h2h} onClick={setShowH2h} />}
 

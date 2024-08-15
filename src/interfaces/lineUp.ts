@@ -1,8 +1,7 @@
 export interface lineUp {
     confirmed?: boolean
-    home?: Away
-    away?: Away
-    done?: 'not'
+    home: Away
+    away: Away
 }
 
 export interface Away {

@@ -94,6 +94,22 @@
     border-radius: 50%;
 }
 
+.lineUp__player-number {
+    position: relative;
+    top: -85px;
+    left: 40px;
+    background: #fff;
+    color: dodgerblue;
+    border: 1px solid dodgerblue;
+    font-weight: 700;
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+}
+
 .lineUp__player-status {
     width: 100%;
     display: flex;

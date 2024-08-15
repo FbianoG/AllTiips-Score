@@ -19,7 +19,6 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
 
     const nameStatus: { [key: string]: string } = {
         "rating": 'Rating',
-        "matchesStarted": 'Titular',
         "appearances": 'Jogos',
         "minutesPlayed": 'Minutos (p/ jogo)',
         "goals": 'Gols',
@@ -30,8 +29,8 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
         "touches": 'Toques',
         "fouls": 'Faltas',
         "tackles": 'Desarmes',
-        "redCards": 'C. Vermelho',
         "yellowCards": 'C. Amarelo',
+        "redCards": 'C. Vermelho',
     }
 
     const [showPlayerDetails, setShowPlayerDetails] = useState<boolean>(false)
@@ -59,9 +58,9 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
 
             <button className='box__btn-close' title='Fechar' onClick={() => onClick(false)}><i className="fa-solid fa-xmark"></i></button>
 
-            {lineUp.done && <h3 style={{ gridColumn: 'span 2' }}>Escalação</h3>}
 
-            {!lineUp.done && showPlayerDetails && playerDetails && selectPlayer &&
+
+            {showPlayerDetails && playerDetails && selectPlayer &&
                 <>
                     <button className='box__btn-back' title='Voltar' onClick={() => { setShowPlayerDetails(false), setPlayerDetails(undefined) }}><i className="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i></button>
 
@@ -71,6 +70,8 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                         <img className='lineUp__player-img' src={`https://api.sofascore.app/api/v1/player/${selectPlayer.player.id}/image`} alt='' />
                         <p className='lineUp__item-name'>{selectPlayer.player.name}</p>
                         <p className={`pos ${selectPlayer.position}`}>{selectPlayer.position}</p>
+                        <p className='lineUp__player-number'>{selectPlayer.jerseyNumber}</p>
+                        <p >{selectPlayer.captain}</p>
 
                         {Object.entries(nameStatus).map(([key, value]) => {
 
@@ -80,8 +81,6 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                             if (key === 'minutesPlayed') {
                                 average = (playerDetails.minutesPlayed / playerDetails.appearances).toFixed(0) + 'min'
                             } else if (key === 'appearances') {
-                                average = data
-                            } else if (key === 'matchesStarted') {
                                 average = data
                             } else if (key === 'rating') {
                                 average = data.toFixed(2)
@@ -103,8 +102,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                     </div>
                 </>
             }
-
-            {!lineUp.done && !showPlayerDetails && !playerDetails && lineUp.away && lineUp.home &&
+            {!showPlayerDetails && !playerDetails && lineUp &&
                 <>
 
                     <ul className="lineUp__list">
@@ -143,7 +141,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                 </>
             }
 
-            {!lineUp.confirmed && <span className='lineUp__confirmed'>Escalação não confirmada.</span>}
+            {!lineUp?.confirmed && <span className='lineUp__confirmed'>Escalação não confirmada.</span>}
 
         </div >
     )

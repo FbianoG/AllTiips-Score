@@ -69,7 +69,10 @@
     top: 3px;
     color: #2896df;
     font-size: 20px;
-
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 .matches__card-h2h {
@@ -79,6 +82,10 @@
     top: 3px;
     color: #2896df;
     font-size: 20px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 
