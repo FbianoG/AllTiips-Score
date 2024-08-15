@@ -13,7 +13,7 @@ interface LineUpProps {
 
 const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
 
-    // console.log(matchTeans)
+    console.log(lineUp)
     const leagueId = matchTeans.tournament.uniqueTournament.id
     const season = matchTeans.season.id
 
@@ -59,7 +59,9 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
 
             <button className='box__btn-close' title='Fechar' onClick={() => onClick(false)}><i className="fa-solid fa-xmark"></i></button>
 
-            {showPlayerDetails && playerDetails && selectPlayer &&
+            {lineUp.done && <h3 style={{gridColumn:'span 2'}}>Escalação</h3>}
+
+            {!lineUp.done && showPlayerDetails && playerDetails && selectPlayer &&
                 <>
                     <button className='box__btn-back' title='Voltar' onClick={() => { setShowPlayerDetails(false), setPlayerDetails(undefined) }}><i className="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i></button>
 
@@ -102,8 +104,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                 </>
             }
 
-            {
-                !showPlayerDetails && !playerDetails &&
+            {!lineUp.done && !showPlayerDetails && !playerDetails &&
                 <>
 
                     <ul className="lineUp__list">

@@ -38,6 +38,7 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
             if (response) setLineUp(response)
         } catch (error) {
             console.log(error)
+            setLineUp({ done: 'not' })
         }
     }
 
