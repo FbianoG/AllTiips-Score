@@ -113,7 +113,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, referee, matchTeans, onClick })
                         {lineUp.home.players.map(element => {
                             if (element.substitute) return
                             return (
-                                <li key={element.player.id} className='lineUp__item' onClick={() => handlePlayer(element.player.id, element, 'home')} >
+                                <li key={element.player.id} className='lineUp__item' title='Ver Estatísticas' onClick={() => handlePlayer(element.player.id, element, 'home')} >
                                     <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
                                     <p className={`pos ${element.position}`}>{element.position}</p>
                                     <p className='lineUp__item-name'>{element.player.shortName}</p>
@@ -130,7 +130,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, referee, matchTeans, onClick })
                         {lineUp.away.players.map(element => {
                             if (element.substitute) return
                             return (
-                                <li key={element.player.id} className='lineUp__item reverse' onClick={() => handlePlayer(element.player.id, element, 'away')}>
+                                <li key={element.player.id} className='lineUp__item reverse' title='Ver Estatísticas' onClick={() => handlePlayer(element.player.id, element, 'away')}>
                                     <img src={`https://api.sofascore.app/api/v1/player/${element.player.id}/image`} alt='' />
                                     <p className={`pos ${element.position}`}>{element.position}</p>
                                     <p className='lineUp__item-name'>{element.player.shortName}</p>
@@ -144,9 +144,9 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, referee, matchTeans, onClick })
             {!lineUp?.confirmed && <span className='lineUp__confirmed'>Escalação não confirmada.</span>}
 
             {referee && <div className="lineUp__referee">
-                <img className='lineUp__referee-img' src={`https://api.sofascore.app/api/v1/referee/${referee.referee.id}/image`} alt='' />
+                <img className='lineUp__referee-img' src={`https://api.sofascore.app/api/v1/referee/${referee.referee.id}/image`} alt='Foto Árbitro' />
                 <p className='lineUp__referee-name'>{referee.referee.name} <img src={`https://www.sofascore.com/static/images/flags/${(referee.referee.country.alpha2).toLowerCase()}.png`} alt='País' /></p>
-                <span className='lineUp__referee-cards'>🟨{(referee.referee.yellowCards / referee.referee.games).toFixed(1)}  🟥{(referee.referee.redCards / referee.referee.games).toFixed(1)}</span>
+                <span className='lineUp__referee-cards' title='p/ jogo'>🟨{(referee.referee.yellowCards / referee.referee.games).toFixed(1)}  🟥{(referee.referee.redCards / referee.referee.games).toFixed(1)}</span>
             </div>}
 
 
