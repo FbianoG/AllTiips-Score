@@ -1,5 +1,6 @@
 import axios from "axios"
 import { ApiMatches } from "../interfaces/interface"
+import { ApiSearchData } from "../interfaces/searchData"
 
 const getTopPlayers = async (teamId: string, leagueId: number, season: number) => { // Estatísticas dos jogadores e do time
     try {
@@ -110,7 +111,30 @@ const getReferee = async (matcheId: number) => { // Informações detalhadas da 
     }
 }
 
-export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp, getH2h, getMatchDetails, getReferee }
+const searchData = async (text: string) => {
+    try {
+        if (text.length < 2) return []
+        const response = await axios.get(`https://www.sofascore.com/api/v1/search/all?q=${text}&page=0`)
+        const resJustSoccer = response.data.results.filter((element: ApiSearchData) => element.entity.sport?.name === 'Football' && element.type === 'team')
+        return resJustSoccer
+    } catch (error) {
+        console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
+    }
+
+}
+const getTeamTournaments = async (teamId: number) => {
+    try {
+        const response = await axios.get(`https://www.sofascore.com/api/v1/team/${teamId}/team-statistics/seasons`)
+        return response.data.uniqueTournamentSeasons
+    } catch (error) {
+        console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
+    }
+
+}
+
+export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp, getH2h, getMatchDetails, getReferee, searchData, getTeamTournaments }
 
 
 
