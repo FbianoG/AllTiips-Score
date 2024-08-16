@@ -19,7 +19,6 @@ const SearchBar: React.FC<SearchProps> = ({ onClick, setTeamLeague, setTeamSeaso
 
     const [showSearchList, setShowSearchList] = useState<boolean>(false)
 
-    const [teamId, setTeamId] = useState<number>()
 
     const [tournaments, setTournaments] = useState<ApiTeamTournament[]>()
 
@@ -42,12 +41,11 @@ const SearchBar: React.FC<SearchProps> = ({ onClick, setTeamLeague, setTeamSeaso
 
     const handleItem = (elementId: number) => {
         onClick(elementId.toString())
-        setTeamId(elementId)
         setShowSearchList(false)
         loadTeamTournaments(elementId)
     }
 
-    const loadTeamTournaments = async (e) => {
+    const loadTeamTournaments = async (e: any) => {
         try {
             const response = await getTeamTournaments(e)
             setTournaments(response)
