@@ -4,8 +4,9 @@ import LineUp from '../LineUp/LineUp'
 import { useState } from 'react'
 import { ApiMatches } from '../../interfaces/interface'
 import { lineUp } from '../../interfaces/lineUp'
-import { getH2h, getLineUp } from '../../api/sofaScore'
+import { getH2h, getLineUp, getReferee } from '../../api/sofaScore'
 import { ApiH2h } from '../../interfaces/H2h'
+import { ApiMatchReferee } from '../../interfaces/matchReferee'
 
 interface MatchesProps {
     element: ApiMatches
@@ -20,6 +21,8 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
     const [h2h, setH2h] = useState<ApiH2h[]>()
     const [showH2h, setShowH2h] = useState<boolean>(false)
 
+    const [matcheReferee, setmatcheReferee] = useState<ApiMatchReferee>()
+
     const handleMatch = (e: any) => {
         if (e.target.tagName === 'I') return
         if (showLineUp) return
@@ -32,10 +35,11 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
         setShowLineUp(true)
         setShowH2h(false)
         try {
-            console.log(lineUp)
             if (lineUp) return
-            const response = await getLineUp(element.id)
-            if (response) setLineUp(response)
+            const resLineUp = await getLineUp(element.id)
+            const resMatchReferee = await getReferee(element.id)
+            setLineUp(resLineUp)
+            setmatcheReferee(resMatchReferee)
         } catch (error) {
             console.log(error)
         }
@@ -66,7 +70,7 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
             <button className='matches__card-lineUp'><i style={{ transform: 'rotate(90deg)' }} className="fi fi-rr-court-sport " onMouseEnter={loadLineUp}></i></button>
             <button className='matches__card-h2h'><i className="fi fi-rr-apps-sort " onMouseEnter={loadH2h} ></i></button>
 
-            {showLineUp && lineUp && <LineUp lineUp={lineUp} matchTeans={element} onClick={setShowLineUp} />}
+            {showLineUp && lineUp && <LineUp lineUp={lineUp} referee={matcheReferee} matchTeans={element} onClick={setShowLineUp} />}
 
             {!lineUp && showLineUp && <div className='h2h' >
                 <button className='box__btn-close' title='Fechar' onClick={() => setShowLineUp(false)}><i className="fa-solid fa-xmark"></i></button>

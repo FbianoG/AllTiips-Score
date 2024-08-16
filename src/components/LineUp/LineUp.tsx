@@ -4,16 +4,17 @@ import { ApiMatches } from '../../interfaces/interface'
 import { getPlayerDetails } from '../../api/sofaScore'
 import { useState } from 'react'
 import { ApiPlayerMoreDetails } from '../../interfaces/playerDetails'
+import { ApiMatchReferee } from '../../interfaces/matchReferee'
 
 interface LineUpProps {
     lineUp: lineUp
+    referee?: ApiMatchReferee
     matchTeans: ApiMatches
     onClick: (a: boolean) => void
 }
 
-const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
+const LineUp: React.FC<LineUpProps> = ({ lineUp, referee, matchTeans, onClick }) => {
 
-    console.log(lineUp)
     const leagueId = matchTeans.tournament.uniqueTournament.id
     const season = matchTeans.season.id
 
@@ -140,8 +141,14 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, matchTeans, onClick }) => {
                     </ul>
                 </>
             }
-
             {!lineUp?.confirmed && <span className='lineUp__confirmed'>Escalação não confirmada.</span>}
+
+            {referee && <div className="lineUp__referee">
+                <img className='lineUp__referee-img' src={`https://api.sofascore.app/api/v1/referee/${referee.referee.id}/image`} alt='' />
+                <p className='lineUp__referee-name'>{referee.referee.name} <img src={`https://www.sofascore.com/static/images/flags/${(referee.referee.country.alpha2).toLowerCase()}.png`} alt='País' /></p>
+                <span className='lineUp__referee-cards'>🟨{(referee.referee.yellowCards / referee.referee.games).toFixed(1)}  🟥{(referee.referee.redCards / referee.referee.games).toFixed(1)}</span>
+            </div>}
+
 
         </div >
     )

@@ -33,8 +33,7 @@ const getTeams = async (leagueId: number, season: number) => { // Times particip
     }
 }
 
-
-const getMatches = async (leagueId: number, season: number) => {
+const getMatches = async (leagueId: number, season: number) => { // Partidas da rodada
     try {
         if (!leagueId || !season) return
         let [nMatches, lMatches, round] = await Promise.allSettled([
@@ -55,8 +54,7 @@ const getMatches = async (leagueId: number, season: number) => {
     }
 }
 
-
-const getPlayerDetails = async (playerId: number, leagueId: number, season: number) => {
+const getPlayerDetails = async (playerId: number, leagueId: number, season: number) => { // Dados e estatísticas do jogador na liga
     try {
         const response = await axios.get(`https://www.sofascore.com/api/v1/player/${playerId}/unique-tournament/${leagueId}/season/${season}/statistics/overall`)
         return response.data.statistics
@@ -66,8 +64,7 @@ const getPlayerDetails = async (playerId: number, leagueId: number, season: numb
     }
 }
 
-
-const getLineUp = async (matcheId: number) => {
+const getLineUp = async (matcheId: number) => { // Escalação da partida
 
     // matcheId = 12290215
     try {
@@ -80,7 +77,7 @@ const getLineUp = async (matcheId: number) => {
 
 }
 
-const getH2h = async (customId: string) => {
+const getH2h = async (customId: string) => { // Confrontos entre os times
 
     // matcheId = 12290215
     try {
@@ -93,7 +90,7 @@ const getH2h = async (customId: string) => {
 
 }
 
-const getMatchDetails = async (matchId: number) => {
+const getMatchDetails = async (matchId: number) => { // Estatísticas da partida da partida
     try {
         const response = await axios.get(`https://www.sofascore.com/api/v1/event/${matchId}/statistics`)
         return response.data.statistics[0].groups[0].statisticsItems
@@ -103,7 +100,17 @@ const getMatchDetails = async (matchId: number) => {
     }
 }
 
-export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp, getH2h, getMatchDetails }
+const getReferee = async (matcheId: number) => { // Informações detalhadas da partida + árbitro
+    try {
+        const response = await axios.get(`https://www.sofascore.com/api/v1/event/${matcheId}`)
+        return response.data.event
+    } catch (error) {
+        console.log(error)
+        throw new Error("Ocorreu algum erro. Tente Novamente!");
+    }
+}
+
+export { getTopPlayers, getTeams, getMatches, getPlayerDetails, getLineUp, getH2h, getMatchDetails, getReferee }
 
 
 

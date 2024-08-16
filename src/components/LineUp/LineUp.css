@@ -129,6 +129,35 @@
     gap: 10px;
 }
 
+
+
+
+.lineUp__referee {
+    margin: 10px 0 0 0 ;
+    grid-column: span 2;
+    color: #333;
+}
+
+.lineUp__referee-img {
+    width: 75px;
+    border-radius: 50%;
+
+}
+
+.lineUp__referee-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 0 0 25px ;
+
+}
+
+.lineUp__referee-name img {
+    width: 15px;
+
+}
+
 /* MB <= 767 - TB <= 1023 - */
 @media screen and (max-width: 767px) {
     .lineUp {
