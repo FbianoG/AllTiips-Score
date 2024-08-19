@@ -168,7 +168,7 @@ const App = () => {
           <InputTeans variant='statistics' leagueId={leagueId} onChange={setType} option={option} />
         }
 
-        <div style={option === 'mat' ? { display: 'none' } : {}} className="homeAway" onClick={() => { setRange(!range), document.querySelectorAll('.group__btn')[0].scrollIntoView() }}>
+        <div style={option === 'mat' ? { display: 'none' } : {}} className="homeAway" onClick={() => setRange(!range)}>
           <span>Casa</span>
           <div className={`range ${range && 'away'}`}>
             <div className={`position ${range && 'away'}`}></div>
@@ -193,7 +193,7 @@ const App = () => {
           {window.innerWidth >= 768 &&
             <div className='list'>
               <ul style={option === 'mat' ? { display: 'none' } : {}}>
-                <SearchBar type='team' setTeamId={setTeamBId} setTeamLeague={setTeamBLeague} setTeamSeason={setTeamBSeason} setStatistics={setStatisticsB} valueInput={valueInput2} />
+                <SearchBar type='team' setTeamId={setTeamBId} setTeamLeague={setTeamBLeague} setTeamSeason={setTeamBSeason} setStatistics={setStatisticsB} valueInput={valueInput2} aside={true} />
                 {teamB && option === 'tea' && statisticsB && <Statistics key={uuidv4()} statistics={statisticsB} aside={true} />}
               </ul>
               {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player key={uuidv4()} element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}
@@ -201,8 +201,8 @@ const App = () => {
           }
 
 
-          {window.innerWidth < 768 && !range &&
-            <div className='list'>
+          {window.innerWidth < 768 &&
+            <div className='list' style={range ? { display: 'none' } : {}}>
               <ul style={option === 'mat' ? { display: 'none' } : {}}>
                 < SearchBar type='team' setTeamId={setTeamAId} setTeamLeague={setTeamALeague} setTeamSeason={setTeamASeason} setStatistics={setStatisticsA} valueInput={valueInput1} />
                 {teamA && option === 'tea' && statisticsA && <Statistics key={uuidv4()} statistics={statisticsA} />}
@@ -211,10 +211,10 @@ const App = () => {
             </ div>
           }
 
-          {window.innerWidth < 768 && range &&
-            <div className='list'>
+          {window.innerWidth < 768 &&
+            <div className='list' style={!range ? { display: 'none' } : {}}>
               <ul style={option === 'mat' ? { display: 'none' } : {}}>
-                <SearchBar type='team' setTeamId={setTeamBId} setTeamLeague={setTeamBLeague} setTeamSeason={setTeamBSeason} setStatistics={setStatisticsB} valueInput={valueInput2} />
+                <SearchBar type='team' setTeamId={setTeamBId} setTeamLeague={setTeamBLeague} setTeamSeason={setTeamBSeason} setStatistics={setStatisticsB} valueInput={valueInput2} aside={true} />
                 {teamB && option === 'tea' && statisticsB && <Statistics key={uuidv4()} statistics={statisticsB} aside={true} />}
               </ul>
               {teamB && type && option === 'pla' && teamB[type]?.map((element: ApiPlayerDetail) => <Player key={uuidv4()} element={element} type={type} leagueId={leagueId} season={season} savePlayer={savePlayer} aside={true} />)}

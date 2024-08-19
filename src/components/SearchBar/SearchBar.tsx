@@ -12,9 +12,10 @@ interface SearchProps {
     setTeamSeason: (a: number) => void
     setStatistics: (a: any) => void
     valueInput: string
+    aside?: boolean
 }
 
-const SearchBar: React.FC<SearchProps> = ({ setTeamId, setTeamLeague, setTeamSeason, setStatistics, valueInput }) => {
+const SearchBar: React.FC<SearchProps> = ({ setTeamId, setTeamLeague, setTeamSeason, setStatistics, valueInput, aside }) => {
 
     const [result, setResult] = useState<ApiSearchData[]>([])
 
@@ -29,6 +30,7 @@ const SearchBar: React.FC<SearchProps> = ({ setTeamId, setTeamLeague, setTeamSea
     useEffect(() => { setNameTeam(valueInput) }, [valueInput])
 
     const handleInput = async (text: string) => {
+        if (showSearchList) return setShowSearchList(false)
         setNameTeam(text)
         try {
             setShowSearchList(true)
@@ -72,10 +74,30 @@ const SearchBar: React.FC<SearchProps> = ({ setTeamId, setTeamLeague, setTeamSea
 
     return (
         <div className='searchBar'>
-            <div className="searchBar__input">
-                <i className="fa-solid fa-magnifying-glass"></i>
-                <input type='search' placeholder='Pesquisar Time' value={NameTeam} onChange={(e) => handleInput(e.target.value)} />
+            <div className={`searchBar__input ${aside && 'reverse'}`} >
+                <input style={aside ? { textAlign: 'center' } : {}} type='text' placeholder='Pesquisar Time' value={NameTeam} onChange={(e) => (setNameTeam(e.target.value), setShowSearchList(false))} />
+                <i className="fa-solid fa-magnifying-glass" onClick={() => handleInput(NameTeam)}></i>
             </div>
+
+            {
+                result.length > 0 && showSearchList && <div className="searchBar__content">
+                    <ul className='searchBar__content_list'>
+                        {result.map(element => <li key={uuidv4()} className='searchBar__content_list_item' onClick={() => handleItem(element)}>
+                            <img className='searchBar__content_list_item-img' src={`https://api.sofascore.app/api/v1/${element.type}/${element.entity.id}/image`} alt={element.entity.shortName} />
+                            <div className="searchBar__content_list_item_data">
+                                <p className="searchBar__content_list_item_data-name">{element.entity.name} </p>
+                                {element.type === 'player' && <span className="searchBar__content_list_item_data-legend">{element.entity.team?.shortName}</span>}
+                                {element.type === 'team' && <span className="searchBar__content_list_item_data-legend">{element.entity.country.name}</span>}
+                            </div>
+                        </li>)}
+
+                    </ul>
+                </div>
+            }
+
+
+
+
 
             <div className="searchBar__dataLeagues">
 
@@ -94,21 +116,7 @@ const SearchBar: React.FC<SearchProps> = ({ setTeamId, setTeamLeague, setTeamSea
                 }
             </div>
 
-            {
-                result.length > 0 && showSearchList && <div className="searchBar__content">
-                    <ul className='searchBar__content_list'>
-                        {result.map(element => <li key={uuidv4()} className='searchBar__content_list_item' onClick={() => handleItem(element)}>
-                            <img className='searchBar__content_list_item-img' src={`https://api.sofascore.app/api/v1/${element.type}/${element.entity.id}/image`} alt={element.entity.shortName} />
-                            <div className="searchBar__content_list_item_data">
-                                <p className="searchBar__content_list_item_data-name">{element.entity.name} </p>
-                                {element.type === 'player' && <span className="searchBar__content_list_item_data-legend">{element.entity.team?.shortName}</span>}
-                                {element.type === 'team' && <span className="searchBar__content_list_item_data-legend">{element.entity.country.name}</span>}
-                            </div>
-                        </li>)}
-
-                    </ul>
-                </div>
-            }
+           
         </div >
     )
 }

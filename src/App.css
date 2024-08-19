@@ -108,7 +108,7 @@ body {
 }
 
 .range.away {
-  background: #f3adad;
+  background: #d9e9d6;
 }
 
 .range .position {
@@ -124,7 +124,7 @@ body {
 
 .position.away {
   right: 0;
-  background: #e94646;
+  background: #70d367;
 }
 
 /* MB <= 767 - TB <= 1023 - */
@@ -152,7 +152,7 @@ body {
 
   .type {
     width: 100%;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
   }
 
@@ -166,7 +166,7 @@ body {
 
   .homeAway {
     display: flex;
-    position: sticky;
+    /* position: sticky; */
     top: 54px;
   }
 }
