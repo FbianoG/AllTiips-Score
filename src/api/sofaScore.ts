@@ -2,7 +2,7 @@ import axios from "axios"
 import { ApiMatches } from "../interfaces/interface"
 import { ApiSearchData } from "../interfaces/searchData"
 
-const getTopPlayers = async (teamId: string, leagueId: number, season: number) => { // Estatísticas dos jogadores e do time
+const getTopPlayers = async (teamId: number, leagueId: number, season: number) => { // Estatísticas dos jogadores e do time
     try {
         if (leagueId !== 132) {
             const [responsePlayers, responseTeams] = await Promise.allSettled([

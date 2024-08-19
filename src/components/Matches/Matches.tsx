@@ -10,10 +10,10 @@ import { ApiMatchReferee } from '../../interfaces/matchReferee'
 
 interface MatchesProps {
     element: ApiMatches
-    selectMatch: (a: number, b: number, c: number, d: number) => void
+    selectMatch: (a: ApiMatches) => void
 }
 
-const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
+const Matches: React.FC<MatchesProps> = ({ element, selectMatch, }) => {
 
     const [lineUp, setLineUp] = useState<lineUp>()
     const [showLineUp, setShowLineUp] = useState<boolean>(false)
@@ -27,7 +27,7 @@ const Matches: React.FC<MatchesProps> = ({ element, selectMatch }) => {
         if (e.target.tagName === 'I') return
         if (showLineUp) return
         if (showH2h) return
-        selectMatch(element.homeTeam.id, element.awayTeam.id, element.tournament.uniqueTournament.id, element.season.id)
+        selectMatch(element)
         document.querySelectorAll('.item')[0].scrollIntoView({ behavior: 'smooth' })
     }
 

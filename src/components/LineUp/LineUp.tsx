@@ -19,7 +19,7 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, referee, matchTeans, onClick })
     const season = matchTeans.season.id
 
     const nameStatus: { [key: string]: string } = {
-        "rating": 'Rating',
+        "rating": 'Desempenho',
         "appearances": 'Jogos',
         "minutesPlayed": 'Minutos (p/ jogo)',
         "goals": 'Gols',
@@ -143,10 +143,12 @@ const LineUp: React.FC<LineUpProps> = ({ lineUp, referee, matchTeans, onClick })
             }
             {!lineUp?.confirmed && <span className='lineUp__confirmed'>Escalação não confirmada.</span>}
 
-            {referee && <div className="lineUp__referee">
-                <img className='lineUp__referee-img' src={`https://api.sofascore.app/api/v1/referee/${referee.referee.id}/image`} alt='Foto Árbitro' />
-                <p className='lineUp__referee-name'>{referee.referee.name} <img src={`https://www.sofascore.com/static/images/flags/${(referee.referee.country.alpha2).toLowerCase()}.png`} alt='País' /></p>
-                <span className='lineUp__referee-cards' title='p/ jogo'>🟨{(referee.referee.yellowCards / referee.referee.games).toFixed(1)}  🟥{(referee.referee.redCards / referee.referee.games).toFixed(1)}</span>
+            {referee?.referee && <div className="lineUp__referee">
+                <img className='lineUp__referee-img' src={`https://api.sofascore.app/api/v1/referee/${referee.referee?.id}/image`} alt='Foto Árbitro' />
+                <div className="lineUp__referee-data">
+                    <p className='lineUp__referee-name'>{referee.referee.name} <img src={`https://www.sofascore.com/static/images/flags/${(referee.referee.country.alpha2).toLowerCase()}.png`} alt='País' /></p>
+                    <span className='lineUp__referee-cards' title='p/ jogo'>🟨{(referee.referee.yellowCards / referee.referee.games).toFixed(1)}  🟥{(referee.referee.redCards / referee.referee.games).toFixed(1)}</span>
+                </div>
             </div>}
 
 
