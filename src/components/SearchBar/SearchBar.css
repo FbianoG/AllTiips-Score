@@ -34,11 +34,12 @@
 
 .searchBar__input i {
     color: #777;
-    background: #e5e5e5;
+    background: #f1f1f1;
     height: 100%;
     width: 70px;
     display: grid;
     place-items: center;
+    border-radius: .5rem .5rem 0 0;
     transition: .3s;
 
     &:hover {
