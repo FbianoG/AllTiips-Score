@@ -1,30 +1,21 @@
-# React + TypeScript + Vite
+# ALL Tiips - Score
+ALL Tiips - Score foi criado para oferecer uma análise detalhada e precisa das estatísticas de jogadores e partidas de futebol em diversos campeonatos ao redor do mundo. Nele, você pode explorar dados estatísticos completos, filtrar jogadores com base em fundamentos específicos e utilizar essas informações para calcular a probabilidade de sucesso das suas apostas. Com uma interface intuitiva e focada em dados, nosso objetivo é ajudar você a tomar decisões mais informadas e aumentar suas chances de acerto em suas apostas esportivas.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tecnologias
+- React.js
+- TypeScript
+- API - SofaScore
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Modo de Usar
+1. Clone o repositório:
+```bash
+git clone https://github.com/FbianoG/AllTiips-Score.git
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Instale as dependências:
+```bash
+npm install
+```
+3. Inicie a aplicação:
+```bash
+npm start
+```
