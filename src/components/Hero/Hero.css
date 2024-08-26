@@ -11,6 +11,20 @@
 .hero__data {
     padding: 0 0 2%;
     max-width: 500px;
+    position: relative;
+}
+
+.hero__data::before {
+    content: '';
+    height: 10px;
+    width: 130px;
+    position: absolute;
+    top: -15px;
+    left: 0;
+    display: block;
+    background: dodgerblue;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px #0003;
 }
 
 .hero__data h2 {
@@ -25,15 +39,6 @@
     color: #fdfdfd;
     font-size: 20px;
     margin: 10px 0 0 0;
-}
-
-.hero__data span {
-    display: block;
-    background: dodgerblue;
-    height: 10px;
-    width: 130px;
-    border-radius: 10px;
-    box-shadow: 3px 3px 5px #0003;
 }
 
 .hero .deep {
@@ -67,8 +72,9 @@
 @media screen and (max-width: 767px) {
 
     .hero__data {
-        padding: 0 0 7% ;
+        padding: 0 0 7%;
     }
+
     .hero__data h2 {
         font-size: 40px;
     }

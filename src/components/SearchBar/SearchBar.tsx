@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import './SearchBar.css'
 import { getTeamTournaments, searchData } from '../../api/sofaScore'
 import { ApiSearchData } from '../../interfaces/searchData'
@@ -29,12 +29,13 @@ const SearchBar: React.FC<SearchProps> = ({ setTeamId, setTeamLeague, setTeamSea
 
     useEffect(() => { setNameTeam(valueInput) }, [valueInput])
 
-    const handleInput = async (text: string) => {
+    const handleInput = async (e: FormEvent) => {
+        e.preventDefault()
         if (showSearchList) return setShowSearchList(false)
-        setNameTeam(text)
+        setNameTeam(NameTeam)
         try {
             setShowSearchList(true)
-            const response = await searchData(text.toLowerCase())
+            const response = await searchData(NameTeam.toLowerCase())
             setResult(response)
         } catch (error) {
 
@@ -74,49 +75,37 @@ const SearchBar: React.FC<SearchProps> = ({ setTeamId, setTeamLeague, setTeamSea
 
     return (
         <div className='searchBar'>
-            <div className={`searchBar__input ${aside && 'reverse'}`} >
-                <input style={aside ? { textAlign: 'center' } : {}} type='text' placeholder='Pesquisar Time' value={NameTeam} onChange={(e) => (setNameTeam(e.target.value), setShowSearchList(false))} />
-                <i className="fa-solid fa-magnifying-glass" onClick={() => handleInput(NameTeam)}></i>
-            </div>
 
-            {
-                result.length > 0 && showSearchList && <div className="searchBar__content">
-                    <ul className='searchBar__content_list'>
-                        {result.map(element => <li key={uuidv4()} className='searchBar__content_list_item' onClick={() => handleItem(element)}>
-                            <img className='searchBar__content_list_item-img' src={`https://api.sofascore.app/api/v1/${element.type}/${element.entity.id}/image`} alt={element.entity.shortName} />
-                            <div className="searchBar__content_list_item_data">
-                                <p className="searchBar__content_list_item_data-name">{element.entity.name} </p>
-                                {element.type === 'player' && <span className="searchBar__content_list_item_data-legend">{element.entity.team?.shortName}</span>}
-                                {element.type === 'team' && <span className="searchBar__content_list_item_data-legend">{element.entity.country.name}</span>}
-                            </div>
-                        </li>)}
+            <form className={`searchBar__input ${aside && 'reverse'}`} onSubmit={(e) => handleInput(e)} >
+                <input style={aside ? { textAlign: 'center' } : {}} type='text' name='text' placeholder='Pesquisar Time' value={NameTeam} onChange={(e) => (setNameTeam(e.target.value), setShowSearchList(false))} />
+                <button type='submit' ><i className="fa-solid fa-magnifying-glass"></i></button>
+            </form>
 
-                    </ul>
-                </div>
-            }
-
-
-
-
+            {result.length > 0 && showSearchList && <div className="searchBar__content">
+                <ul className='searchBar__content_list'>
+                    {result.map(element => <li key={uuidv4()} className='searchBar__content_list_item' onClick={() => handleItem(element)}>
+                        <img className='searchBar__content_list_item-img' src={`https://api.sofascore.app/api/v1/${element.type}/${element.entity.id}/image`} alt={element.entity.shortName} />
+                        <div className="searchBar__content_list_item_data">
+                            <p className="searchBar__content_list_item_data-name">{element.entity.name} </p>
+                            {element.type === 'player' && <span className="searchBar__content_list_item_data-legend">{element.entity.team?.shortName}</span>}
+                            {element.type === 'team' && <span className="searchBar__content_list_item_data-legend">{element.entity.country.name}</span>}
+                        </div>
+                    </li>)}
+                </ul>
+            </div>}
 
             <div className="searchBar__dataLeagues">
+                {tournaments && <select onChange={(e) => handleTournament(e.target.value)}>
+                    <option value='' selected disabled>Liga</option>
+                    {tournaments && tournaments?.map(element => <option value={element.uniqueTournament.id}>{element.uniqueTournament.name}</option>)}
+                </select>}
 
-                {tournaments &&
-                    <select onChange={(e) => handleTournament(e.target.value)}>
-                        <option value='' selected disabled>Liga</option>
-                        {tournaments && tournaments?.map(element => <option value={element.uniqueTournament.id}>{element.uniqueTournament.name}</option>)}
-                    </select>
-                }
-
-                {seasons &&
-                    <select onChange={(e) => setTeamSeason(Number(e.target.value))}>
-                        <option value='' selected disabled>Ano</option>
-                        {seasons?.map(element => <option value={element.id}>{element.year}</option>)}
-                    </select>
-                }
+                {seasons && <select onChange={(e) => setTeamSeason(Number(e.target.value))}>
+                    <option value='' selected disabled>Ano</option>
+                    {seasons?.map(element => <option value={element.id}>{element.year}</option>)}
+                </select>}
             </div>
 
-           
         </div >
     )
 }

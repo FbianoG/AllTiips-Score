@@ -32,21 +32,28 @@
     text-align: center;
 }
 
-.searchBar__input i {
-    color: #777;
+.searchBar__input button {
     background: #f1f1f1;
     height: 100%;
     width: 70px;
     display: grid;
     place-items: center;
+    border: none;
     border-radius: .5rem .5rem 0 0;
     transition: .3s;
+    color: #777;
+
 
     &:hover {
         background: dodgerblue;
         color: #fff;
         cursor: pointer;
     }
+}
+
+.searchBar__input i {
+
+
 }
 
 .searchBar__dataLeagues {
